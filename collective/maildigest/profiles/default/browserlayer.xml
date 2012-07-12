@@ -1,0 +1,4 @@
+<layers>
+    <layer name="collective.maildigest"
+           interface="collective.maildigest.browser.interfaces.ILayer" />
+</layers>
