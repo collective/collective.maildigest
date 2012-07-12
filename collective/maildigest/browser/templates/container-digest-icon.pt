@@ -1,0 +1,17 @@
+<div id="digest-button" tal:condition="not:view/anonymous"
+     i18n:domain="collective.maildigest">
+   <a tal:attributes="href view/form_url" id="digest-form-link">
+     <img tal:condition="view/subscribed_daily"
+          tal:attributes="src string:${view/portal_url}/maildigest-daily.png"
+          title="You have subscribed to daily digest on this folder"
+          i18n:attributes="title folder_digesticon_weekly_title" />
+     <img tal:condition="view/subscribed_weekly"
+          tal:attributes="src string:${view/portal_url}/maildigest-weekly.png"
+          title="You have subscribed to weekly digest on this folder"
+          i18n:attributes="title folder_digesticon_daily_title" />
+     <img tal:condition="view/subscribed_nothing"
+          tal:attributes="src string:${view/portal_url}/maildigest.png"
+          title="Subscribe to weekly or daily digest of activity in this folder"
+          i18n:attributes="title folder_digesticon_title" />
+   </a>
+</div>

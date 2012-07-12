@@ -1,0 +1,12 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    i18n_domain="collective.maildigest">
+
+  <cmf:registerDirectory
+      name="maildigest_images"/>
+
+  <cmf:registerDirectory
+      name="maildigest_styles"/>
+
+</configure>

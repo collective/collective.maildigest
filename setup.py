@@ -6,8 +6,7 @@ version = '0.1'
 setup(name='collective.maildigest',
       version=version,
       description="Users can subscribe on a mail digest about activity in a Plone Folder",
-      long_description=open("README.rst").read() + "\n" +
-                       open(os.path.join("docs", "HISTORY.txt")).read(),
+      long_description=open("README.rst").read() + "\n" + open("CHANGES.txt").read(),
       # Get more strings from
       # http://pypi.python.org/pypi?:action=list_classifiers
       classifiers=[
@@ -29,6 +28,7 @@ setup(name='collective.maildigest',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
+          'collective.inviting'
       ],
       extras_require = dict(
           tests=['plone.app.testing'],

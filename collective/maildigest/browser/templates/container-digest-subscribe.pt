@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="context/main_template/macros/master"
+      i18n:domain="collective.maildigest">
+<body>
+<div metal:fill-slot="main">
+ <div id="digest-form" tal:define="dummy view/update">
+   <h1 i18n:translate="" tal:condition="view/subscribed_nothing">
+      Follow activity on this folder
+   </h1>
+   <h1 i18n:translate="" tal:condition="not:view/subscribed_nothing">
+      Change my subscription on this folder
+   </h1>
+
+   <form method="POST" action="digest-subscribe-submit">
+    <div class="field">
+        <input type="radio" id="daily" name="digest-subscription"
+               value="daily-digest"
+               tal:attributes="checked view/subscribed_daily" />
+        <label for="daily" i18n:translate="">Daily email</label>
+    </div>
+    <div class="field">
+        <input type="radio" id="weekly" name="digest-subscription"
+               value="weekly-digest"
+               tal:attributes="checked view/subscribed_weekly" />
+        <label for="weekly" i18n:translate="">Weekly email</label>
+    </div>
+    <div class="field" tal:condition="not:view/subscribed_nothing">
+        <input type="radio" id="unsubscribe" name="digest-subscription"
+               value="cancel-subscription" />
+        <label for="unsubscribe" i18n:translate="">Cancel subscription</label>
+    </div>
+    <div class="formControls">
+        <input tal:condition="not:view/subscribed_nothing"
+               class="context" type="submit"
+               value="Validate" i18n:attributes="value" i18n:domain="plone" />
+        <input tal:condition="view/subscribed_nothing"
+               class="context" type="submit"
+               value="Subscribe" i18n:attributes="value" />
+        <input class="context" type="button" name="form.button.Cancel"
+               value="Cancel" i18n:attributes="value" />
+    </div>
+   </form>
+ </div>
+</div>
+</body>
+</html>

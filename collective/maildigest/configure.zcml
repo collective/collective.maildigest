@@ -7,18 +7,10 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="collective.maildigest">
 
-  <include package=".browser" />
+  <include file="minimal.zcml" />
 
-  <i18n:registerTranslations directory="locales" />
-
-  <genericsetup:registerProfile
-      name="default"
-      title="collective.maildigest"
-      directory="profiles/default"
-      description='Extension profile'
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
-  <include package=".upgrades" />
-
+  <class class="Products.ATContentTypes.content.folder.ATFolder">
+    <implements interface=".interfaces.IFollowableContainer" />
+  </class>
 
 </configure>
