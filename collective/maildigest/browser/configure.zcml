@@ -30,6 +30,13 @@
     permission="zope2.View"
     />
 
+  <browser:page
+    for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+    name="digest-cron"
+    class=".cron.DigestCron"
+    permission="cmf.ManagePortal"
+    />
+
   <browser:viewlet
       for="..interfaces.IFollowableContainer"
       view="plone.app.layout.globals.interfaces.IViewView"

@@ -1,0 +1,9 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="collective.maildigest">
+
+  <utility name="sameeditor"
+           factory=".rules.SameEditor"
+           provides="..interfaces.IDigestFilterRule" />
+
+</configure>

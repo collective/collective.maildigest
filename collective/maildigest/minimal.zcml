@@ -8,6 +8,8 @@
   <include file="skins.zcml" />
 
   <include package=".storage" />
+  <include package=".activity" />
+  <include package=".digestrules" />
   <include package=".browser" />
 
   <browser:resource

@@ -11,7 +11,7 @@ from collective.subscribe.interfaces import ISubscriptionCatalog, IUIDStrategy
 from collective.subscribe.interfaces import ISubscribers, ISubscriptionKeys
 from collective.subscribe.subscriber import ItemSubscriber
 
-from ..interfaces import IDigestInfo
+from ..interfaces import IDigestInfo, IDigestUtility
 from Products.statusmessages.interfaces import IStatusMessage
 from .. import DigestMessageFactory as _
 
@@ -25,6 +25,7 @@ class DigestInfo(BrowserView):
         mtool = getToolByName(context, 'portal_membership')
         self.uid = IUIDStrategy(context).getuid()
         self.container = queryUtility(ISubscribers)
+        self.utility = getUtility(IDigestUtility)
         self.catalog = queryUtility(ISubscriptionCatalog)
         self.user = mtool.getAuthenticatedMember()
         self.user_id = self.user.getId()
@@ -40,17 +41,12 @@ class DigestSubscribe(DigestInfo):
         self.update()
         subscription = self.request['digest-subscription']
         statusmessage = IStatusMessage(self.request)
+        self.utility.switch_subscription(self.subscriber, self.context, subscription)
         if subscription == 'daily-digest':
-            self.catalog.unindex(self.subscriber, self.uid, 'weekly-digest')
-            self.catalog.index(self.subscriber, self.uid, 'daily-digest')
             message = _("You subscribed to daily digest email about activity on this folder")
         elif subscription == 'weekly-digest':
-            self.catalog.unindex(self.subscriber, self.uid, 'daily-digest')
-            self.catalog.index(self.subscriber, self.uid, 'weekly-digest')
             message = _("You subscribed to weekly digest email about activity on this folder")
         elif subscription == 'cancel-subscription':
-            self.catalog.unindex(self.subscriber, self.uid, 'daily-digest')
-            self.catalog.unindex(self.subscriber, self.uid, 'weekly-digest')
             message = _("You cancelled your subscription to digest email about activity on this folder")
         else:
             raise ValueError

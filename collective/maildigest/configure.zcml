@@ -17,6 +17,8 @@
   <include package=".activity" file="modify.zcml" />
   <include package=".activity" file="delete.zcml" />
 
+  <include package=".digestrules" file="sameeditor.zcml" />
+
   <class class="Products.ATContentTypes.content.folder.ATFolder">
     <implements interface=".interfaces.IFollowableContainer" />
   </class>
