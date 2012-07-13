@@ -7,6 +7,7 @@
 
   <include file="skins.zcml" />
 
+  <include package=".storage" />
   <include package=".browser" />
 
   <browser:resource
@@ -24,5 +25,8 @@
       />
 
   <include package=".upgrades" />
+
+  <utility factory=".tool.DigestUtility"
+           provides=".interfaces.IDigestUtility" />
 
 </configure>

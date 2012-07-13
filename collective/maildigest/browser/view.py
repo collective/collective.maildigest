@@ -7,7 +7,6 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 
-from collective.inviting.interfaces import IContentSubscribers
 from collective.subscribe.interfaces import ISubscriptionCatalog, IUIDStrategy
 from collective.subscribe.interfaces import ISubscribers, ISubscriptionKeys
 from collective.subscribe.subscriber import ItemSubscriber
@@ -25,7 +24,6 @@ class DigestInfo(BrowserView):
         context = self.context
         mtool = getToolByName(context, 'portal_membership')
         self.uid = IUIDStrategy(context).getuid()
-        self.contentsubscriber = IContentSubscribers(context)
         self.container = queryUtility(ISubscribers)
         self.catalog = queryUtility(ISubscriptionCatalog)
         self.user = mtool.getAuthenticatedMember()

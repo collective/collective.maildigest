@@ -12,3 +12,12 @@ class IFollowableContainer(IFollowable):
 class IDigestInfo(Interface):
     """View that provides info about user subscription on content
     """
+
+class IDigestStorage(Interface):
+    """Storage where activity on site is stored.
+    One storage by delay (daily, weekly, etc)
+    """
+
+class IDigestUtility(Interface):
+    """Tool used by activities to be stored for subscribers
+    """
