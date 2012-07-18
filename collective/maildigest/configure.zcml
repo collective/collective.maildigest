@@ -18,8 +18,10 @@
   <include package=".activity" file="delete.zcml" />
 
   <include package=".digestrules" file="sameeditor.zcml" />
+  <include package=".digestrules" file="unauthorized.zcml" />
 
   <include package=".action" file="log.zcml" />
+  <include package=".action" file="digestemail-byfolder.zcml" />
 
   <class class="Products.ATContentTypes.content.folder.ATFolder">
     <implements interface=".interfaces.IFollowableContainer" />

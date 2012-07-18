@@ -1,0 +1,53 @@
+<div tal:define="folders view/folders"
+     i18n:domain="collective.maildigest">
+  <div>
+    <div i18n:translate="digestemail-byfolders">
+      Recent modifications have happen on the folders you have subscribed to
+    </div>
+    <tal:folders repeat="folder folders">
+    <h1>
+      <a tal:content="folder/title" tal:attributes="href folder/url"></a>
+    </h1>
+    <tal:added condition="folder/add|nothing">
+    <h2 i18n:translate="">Added documents
+    </h2>
+    <ul>
+     <li tal:repeat="doc folder/add">
+      <a tal:attributes="href doc/url" tal:content="doc/title" />
+      <tal:content i18n:translate="actor_and_date">
+      (by <span i18n:name="actor" tal:content="doc/actor" />,
+       the <tal:date i18n:name="actor" tal:content="doc/date" />)
+      </tal:content>
+     </li>
+    </ul>
+    </tal:added>
+    <tal:modified condition="folder/modify|nothing">
+    <h2 i18n:translate="">Modified documents
+    </h2>
+    <ul>
+     <li tal:repeat="doc folder/modify">
+      <a tal:attributes="href doc/url" tal:content="doc/title" />
+      <tal:content i18n:translate="actor_and_date">
+      (by <span i18n:name="actor" tal:content="doc/actor" />,
+       the <tal:date i18n:name="actor" tal:content="doc/date" />)
+      </tal:content>
+     </li>
+    </ul>
+    </tal:modified>
+    <tal:deleted condition="folder/delete|nothing">
+    <h2 i18n:translate="">Modified documents
+    </h2>
+    <ul>
+     <li tal:repeat="doc folder/delete">
+      <tal:title content="doc/title" />
+      <tal:content i18n:translate="actor_and_date">
+      (by <span i18n:name="actor" tal:content="doc/actor" />,
+       the <tal:date i18n:name="actor" tal:content="doc/date" />)
+      </tal:content>
+     </li>
+    </ul>
+    </tal:deleted>
+    <hr />
+    </tal:folders>
+  </div>
+</div>

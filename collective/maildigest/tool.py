@@ -25,11 +25,11 @@ class DigestUtility(object):
         catalog = queryUtility(ISubscriptionCatalog)
         storages = getAdapters((site,), IDigestStorage)
         uid = IUIDStrategy(folder)()
-        info['folder_uid'] = uid
+        info['folder-uid'] = uid
         for key, storage in storages:
             subscribers = catalog.search({'%s-digest' % key: uid})
-            for k, v in subscribers:
-                storage.store_activity(v, activity_key, info)
+            for subscriber in subscribers:
+                storage.store_activity(subscriber, activity_key, info)
 
     def check_digests_to_purge_and_apply(self, site):
         """Check for each storage if it has to be purged and applied, and apply
@@ -47,12 +47,12 @@ class DigestUtility(object):
         filter_rules = [r for n, r in getUtilitiesFor(IDigestFilterRule)]
         digest_strategies =  [r for n, r in getUtilitiesFor(IDigestAction)]
 
-        for userid, info in digest_info.items():
+        for subscriber, info in digest_info.items():
             for rule in filter_rules:
-                info = rule(info)
+                info = rule(site, subscriber, info)
 
             for action in digest_strategies:
-                action(site, userid, info)
+                action(site, subscriber, info)
 
     def switch_subscription(self, subscriber, folder, storage_key):
         catalog = queryUtility(ISubscriptionCatalog)
@@ -64,4 +64,5 @@ class DigestUtility(object):
             if key == storage_key:
                 catalog.index(subscriber, uid, key)
             else:
+                storage.purge_user(subscriber)
                 catalog.unindex(subscriber, uid, key)

@@ -29,19 +29,19 @@ class BaseStorage(object):
     def purge_now(self):
         raise NotImplementedError
 
-    def store_activity(self, userid, activity_key, info):
+    def store_activity(self, subscriber, activity_key, info):
         value = PersistentDict(**info)
         key = '%s-digest' % self.key
         if not key in self.annotations:
             self.annotations[key] = OOBTree()
 
-        if not userid in self.annotations[key]:
-            self.annotations[key][userid] = PersistentDict()
+        if not subscriber in self.annotations[key]:
+            self.annotations[key][subscriber] = PersistentDict()
 
-        if activity_key not in self.annotations[key][userid]:
-             self.annotations[key][userid][activity_key] = PersistentList()
+        if activity_key not in self.annotations[key][subscriber]:
+             self.annotations[key][subscriber][activity_key] = PersistentList()
 
-        self.annotations[key][userid][activity_key].append(value)
+        self.annotations[key][subscriber][activity_key].append(value)
 
     def pop(self):
         """Gets
@@ -62,11 +62,11 @@ class BaseStorage(object):
         else:
             return self.annotations[key]
 
-    def purge_user(self, userid):
+    def purge_user(self, subscriber):
         key = '%s-digest' % self.key
         if key in self.annotations:
-            if userid in self.annotations[key]:
-                del self.annotations[key][userid]
+            if subscriber in self.annotations[key]:
+                del self.annotations[key][subscriber]
 
 
 class DailyStorage(BaseStorage):

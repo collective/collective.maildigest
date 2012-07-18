@@ -1,0 +1,18 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="collective.maildigest">
+
+  <utility name="digestemail-byfolder"
+           factory=".digestemail-byfolder.DigestEmail"
+           provides="..interfaces.IDigestAction" />
+
+  <browser:page
+    for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
+    name="digestemail-byfolder"
+    class=".digestemail-byfolder.DigestEmailMessage"
+    template="templates/digestemail-byfolder.pt"
+    permission="zope2.View"
+    />
+
+</configure>
