@@ -10,7 +10,6 @@ class SameEditor(BaseRule):
     def filter(self, info):
         """remove from info when a content has been modified by same user many times
         """
-        import pdb;pdb.set_trace()
         if not 'modify' in info:
             return info
 

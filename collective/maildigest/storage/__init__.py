@@ -75,6 +75,7 @@ class DailyStorage(BaseStorage):
     label = _("Daily email")
 
     def purge_now(self):
+        return True
         last_purge = self.last_purge()
         now = DateTime()
         if (not last_purge) or now - last_purge > 1 or now.day != last_purge.day:
@@ -89,6 +90,7 @@ class WeeklyStorage(BaseStorage):
     label = _("Weekly email")
 
     def purge_now(self):
+        return True
         last_purge = self.last_purge()
         now = DateTime()
         if (not last_purge) or now - last_purge > 6:

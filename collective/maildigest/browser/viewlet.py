@@ -16,3 +16,4 @@ class DigestIcon(ViewletBase):
         self.subscribed_weekly = self.digestinfo.subscribed_weekly
         self.subscribed_nothing = self.digestinfo.subscribed_nothing
         self.form_url = "%s/digest-subscribe" % self.context.absolute_url()
+

@@ -25,6 +25,7 @@ class DigestUtility(object):
         catalog = queryUtility(ISubscriptionCatalog)
         storages = getAdapters((site,), IDigestStorage)
         uid = IUIDStrategy(folder)()
+        info['folder_uid'] = uid
         for key, storage in storages:
             subscribers = catalog.search({'%s-digest' % key: uid})
             for k, v in subscribers:

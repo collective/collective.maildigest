@@ -8,4 +8,4 @@ def store_activity(document, event):
     utility = getUtility(IDigestUtility).store_activity(folder,
                                                         'delete',
                                                         title=document.Title(),
-                                                        uid=document.UID())
+                                                        uid=IUUID(document))

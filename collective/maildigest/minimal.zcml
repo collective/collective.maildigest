@@ -9,6 +9,7 @@
 
   <include package=".storage" />
   <include package=".activity" />
+  <include package=".action" />
   <include package=".digestrules" />
   <include package=".browser" />
 

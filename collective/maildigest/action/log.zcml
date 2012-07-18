@@ -1,0 +1,9 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="collective.maildigest">
+
+  <utility name="log"
+           factory=".log.Log"
+           provides="..interfaces.IDigestAction" />
+
+</configure>
