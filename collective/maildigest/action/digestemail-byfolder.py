@@ -37,14 +37,19 @@ class DigestEmailMessage(BrowserView):
                         folders[folder_uid] = {'title': folder_brain.Title,
                                                'url': folder_brain.getURL()}
 
-                    doc_brain = ctool.unrestrictedSearchResults(UID=info['uid'])
+                doc_brain = ctool.unrestrictedSearchResults(UID=info['uid'])
+                if not doc_brain:
+                    doc_info = {'title': info.get('title', ''),
+                                'actor': info['actor'],
+                                'date': toLocTime(info['date'])}
+                else:
                     doc_brain = doc_brain[0]
-                    import pdb;pdb.set_trace()
                     doc_info = {'title': doc_brain.Title,
-                           'url': doc_brain.getURL(),
-                           'actor': info['actor'],
-                           'date': toLocTime(info['date'])}
-                    folders[folder_uid].setdefault(activity, []).append(doc_info)
+                                'url': doc_brain.getURL(),
+                                'actor': info['actor'],
+                                'date': toLocTime(info['date'])}
+
+                folders[folder_uid].setdefault(activity, []).append(doc_info)
 
         folders = folders.values()
         folders.sort(key=lambda x: x['url'])
@@ -75,4 +80,6 @@ class DigestEmail(BaseAction):
         message_view.user_type = user_type
         message_view.user_value = user_value
         html = message_view()
-        print html
+
+        mailhost.send(html, mto=mto, mfrom=mfrom, subject=subject,
+             charset='utf-8', msg_type='text/html')

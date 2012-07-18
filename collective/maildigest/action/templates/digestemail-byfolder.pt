@@ -5,12 +5,12 @@
       Recent modifications have happen on the folders you have subscribed to
     </div>
     <tal:folders repeat="folder folders">
-    <h1>
+    <h2>
       <a tal:content="folder/title" tal:attributes="href folder/url"></a>
-    </h1>
-    <tal:added condition="folder/add|nothing">
-    <h2 i18n:translate="">Added documents
     </h2>
+    <tal:added condition="folder/add|nothing">
+    <h3 i18n:translate="">New documents
+    </h3>
     <ul>
      <li tal:repeat="doc folder/add">
       <a tal:attributes="href doc/url" tal:content="doc/title" />
@@ -22,8 +22,8 @@
     </ul>
     </tal:added>
     <tal:modified condition="folder/modify|nothing">
-    <h2 i18n:translate="">Modified documents
-    </h2>
+    <h3 i18n:translate="">Modified documents
+    </h3>
     <ul>
      <li tal:repeat="doc folder/modify">
       <a tal:attributes="href doc/url" tal:content="doc/title" />
@@ -35,8 +35,8 @@
     </ul>
     </tal:modified>
     <tal:deleted condition="folder/delete|nothing">
-    <h2 i18n:translate="">Modified documents
-    </h2>
+    <h3 i18n:translate="">Modified documents
+    </h3>
     <ul>
      <li tal:repeat="doc folder/delete">
       <tal:title content="doc/title" />

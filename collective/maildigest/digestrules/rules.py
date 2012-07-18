@@ -50,10 +50,9 @@ class Unauthorized(BaseRule):
                 continue
 
             for info in activity_infos:
-                filtered[activity] = []
                 brains = ctool.searchResults(UID=(info['folder-uid'], info['uid']),
                                              allowedRolesAndUsers=allowed)
                 if len(brains) == 2:
-                    filtered[activity].append(info)
+                    filtered.setdefault(activity, []).append(info)
 
         return filtered
