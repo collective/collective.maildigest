@@ -58,11 +58,14 @@ class DigestEmailMessage(BrowserView):
 
 class DigestEmail(BaseAction):
 
-    def execute(self, portal, subscriber, info):
+    def execute(self, portal, storage, subscriber, info):
         mailhost = getUtility(IMailHost)
 
-        subject = "[%s] " % portal.Title() + translate(_("Activity digest"),
-                                                       context=portal.REQUEST)
+        subject = "[%s] %s" % (portal.Title(),
+                               translate(_("${storage} activity digest",
+            mapping={'storage': translate(storage.label, context=portal.REQUEST)}),
+                                                       context=portal.REQUEST))
+
         mfrom = formataddr((portal.email_from_name, portal.email_from_address))
 
         user_type, user_value = subscriber
@@ -79,7 +82,8 @@ class DigestEmail(BaseAction):
         message_view.info = deepcopy(info)
         message_view.user_type = user_type
         message_view.user_value = user_value
-        html = message_view()
+        html = message_view().strip()
 
-        mailhost.send(html, mto=mto, mfrom=mfrom, subject=subject,
-             charset='utf-8', msg_type='text/html')
+        if html:
+            mailhost.send(html, mto=mto, mfrom=mfrom, subject=subject,
+                          charset='utf-8', msg_type='text/html')

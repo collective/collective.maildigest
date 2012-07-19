@@ -1,4 +1,5 @@
 <div tal:define="folders view/folders"
+     tal:condition="folders"
      i18n:domain="collective.maildigest">
   <div>
     <div i18n:translate="digestemail-byfolders">

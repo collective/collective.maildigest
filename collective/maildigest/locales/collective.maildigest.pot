@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-07-19 22:24+0000\n"
+"POT-Creation-Date: 2012-07-19 22:36+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.maildigest\n"
 
-#: ./action/digestemail-byfolder.py:64
-msgid "Activity digest"
+#: ./action/digestemail-byfolder.py:65
+msgid "${storage} activity digest"
 msgstr ""
 
-#: ./storage/__init__.py:120
-msgid "At each update"
+#: ./storage/__init__.py:119
+msgid "Automatic"
 msgstr ""
 
 #: ./browser/templates/container-digest-subscribe.pt:33
@@ -33,8 +33,11 @@ msgstr ""
 msgid "Change my subscription on this folder"
 msgstr ""
 
-#: ./browser/templates/container-digest-subscribe.pt:22
 #: ./storage/__init__.py:75
+msgid "Daily"
+msgstr ""
+
+#: ./browser/templates/container-digest-subscribe.pt:22
 msgid "Daily email"
 msgstr ""
 
@@ -46,8 +49,8 @@ msgstr ""
 msgid "Modified documents"
 msgstr ""
 
-#: ./storage/__init__.py:105
-msgid "Monthly email"
+#: ./storage/__init__.py:104
+msgid "Monthly"
 msgstr ""
 
 #: ./action/templates/digestemail-byfolder.pt:12
@@ -66,8 +69,11 @@ msgstr ""
 msgid "Validate"
 msgstr ""
 
+#: ./storage/__init__.py:89
+msgid "Weekly"
+msgstr ""
+
 #: ./browser/templates/container-digest-subscribe.pt:28
-#: ./storage/__init__.py:90
 msgid "Weekly email"
 msgstr ""
 

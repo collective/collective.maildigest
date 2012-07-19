@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.maildigest\n"
-"POT-Creation-Date: 2012-07-19 22:24+0000\n"
+"POT-Creation-Date: 2012-07-19 22:36+0000\n"
 "PO-Revision-Date: 2010-11-13 11:07+0100\n"
 "Last-Translator: YOURNAME <name@email.com>\n"
 "Language-Team: French <plone-fr@lists.plone.org>\n"
@@ -17,13 +17,13 @@ msgstr ""
 "Domain: collective.maildigest\n"
 "X-Is-Fallback-For: fr-be fr-ca fr-lu fr-mc fr-ch fr-fr\n"
 
-#: ./action/digestemail-byfolder.py:64
-msgid "Activity digest"
-msgstr "Résumé de l'activité"
+#: ./action/digestemail-byfolder.py:65
+msgid "${storage} activity digest"
+msgstr "Résumé ${storage} de l'activité"
 
-#: ./storage/__init__.py:120
-msgid "At each update"
-msgstr "À chaque mise à jour"
+#: ./storage/__init__.py:119
+msgid "Automatic"
+msgstr "Automatique"
 
 #: ./browser/templates/container-digest-subscribe.pt:33
 msgid "Cancel subscription"
@@ -33,8 +33,11 @@ msgstr "Se désabonner"
 msgid "Change my subscription on this folder"
 msgstr "Modifier mon abonnement sur ce dossier"
 
-#: ./browser/templates/container-digest-subscribe.pt:22
 #: ./storage/__init__.py:75
+msgid "Daily"
+msgstr "quotidien"
+
+#: ./browser/templates/container-digest-subscribe.pt:22
 msgid "Daily email"
 msgstr "Email quotidien"
 
@@ -46,9 +49,9 @@ msgstr "Suivre l'activité sur ce dossier"
 msgid "Modified documents"
 msgstr "Documents modifiés"
 
-#: ./storage/__init__.py:105
-msgid "Monthly email"
-msgstr "Email mensuel"
+#: ./storage/__init__.py:104
+msgid "Monthly"
+msgstr "mensuel"
 
 #: ./action/templates/digestemail-byfolder.pt:12
 msgid "New documents"
@@ -66,8 +69,11 @@ msgstr "S'abonner"
 msgid "Validate"
 msgstr "Valider"
 
+#: ./storage/__init__.py:89
+msgid "Weekly"
+msgstr "hebdomadaire"
+
 #: ./browser/templates/container-digest-subscribe.pt:28
-#: ./storage/__init__.py:90
 msgid "Weekly email"
 msgstr "Email hebdomadaire"
 

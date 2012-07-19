@@ -72,10 +72,9 @@ class BaseStorage(object):
 class DailyStorage(BaseStorage):
 
     key = 'daily'
-    label = _("Daily email")
+    label = _("Daily")
 
     def purge_now(self):
-        return True
         last_purge = self.last_purge()
         now = DateTime()
         if (not last_purge) or now - last_purge > 1 or now.day != last_purge.day:
@@ -87,7 +86,7 @@ class DailyStorage(BaseStorage):
 class WeeklyStorage(BaseStorage):
 
     key = 'weekly'
-    label = _("Weekly email")
+    label = _("Weekly")
 
     def purge_now(self):
         return True
@@ -102,7 +101,7 @@ class WeeklyStorage(BaseStorage):
 class MonthlyStorage(BaseStorage):
 
     key = 'monthly'
-    label = _("Monthly email")
+    label = _("Monthly")
 
 
     def purge_now(self):
@@ -117,7 +116,7 @@ class MonthlyStorage(BaseStorage):
 class ManualStorage(BaseStorage):
 
     key = 'manual'
-    label = _("At each update")
+    label = _("Automatic")
 
     def purge_now(self):
         return True

@@ -35,12 +35,14 @@ class DigestUtility(object):
         """Check for each storage if it has to be purged and applied, and apply
         """
         storages = getAdapters((site,), IDigestStorage)
-        for key, storage in storages:
-            if storage.purge_now():
-                digest_info = storage.pop()
-                self._apply_digest(site, digest_info)
+        debug = site.REQUEST.get('maildigest-debug-mode', False)
 
-    def _apply_digest(self, site, digest_info):
+        for key, storage in storages:
+            if debug or storage.purge_now():
+                digest_info = storage.pop()
+                self._apply_digest(site, storage, digest_info)
+
+    def _apply_digest(self, site, storage, digest_info):
         """Filter digest info using registered filters
            apply registered strategies for user with filtered info
         """
@@ -52,7 +54,7 @@ class DigestUtility(object):
                 info = rule(site, subscriber, info)
 
             for action in digest_strategies:
-                action(site, subscriber, info)
+                action(site, storage, subscriber, info)
 
     def switch_subscription(self, subscriber, folder, storage_key):
         catalog = queryUtility(ISubscriptionCatalog)
