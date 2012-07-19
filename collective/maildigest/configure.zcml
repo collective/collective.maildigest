@@ -17,6 +17,9 @@
   <include package=".activity" file="modify.zcml" />
   <include package=".activity" file="delete.zcml" />
 
+  <include package=".digestrules" file="addedandremoved.zcml" />
+  <include package=".digestrules" file="addedandmodifiedbysame.zcml" />
+  <include package=".digestrules" file="modifiedandremoved.zcml" />
   <include package=".digestrules" file="sameeditor.zcml" />
   <include package=".digestrules" file="unauthorized.zcml" />
 

@@ -16,7 +16,7 @@
       <a tal:attributes="href doc/url" tal:content="doc/title" />
       <tal:content i18n:translate="actor_and_date">
       (by <span i18n:name="actor" tal:content="doc/actor" />,
-       the <tal:date i18n:name="actor" tal:content="doc/date" />)
+       the <tal:date i18n:name="date" tal:content="doc/date" />)
       </tal:content>
      </li>
     </ul>
@@ -29,20 +29,20 @@
       <a tal:attributes="href doc/url" tal:content="doc/title" />
       <tal:content i18n:translate="actor_and_date">
       (by <span i18n:name="actor" tal:content="doc/actor" />,
-       the <tal:date i18n:name="actor" tal:content="doc/date" />)
+       the <tal:date i18n:name="date" tal:content="doc/date" />)
       </tal:content>
      </li>
     </ul>
     </tal:modified>
     <tal:deleted condition="folder/delete|nothing">
-    <h3 i18n:translate="">Modified documents
+    <h3 i18n:translate="">Removed documents
     </h3>
     <ul>
      <li tal:repeat="doc folder/delete">
       <tal:title content="doc/title" />
       <tal:content i18n:translate="actor_and_date">
       (by <span i18n:name="actor" tal:content="doc/actor" />,
-       the <tal:date i18n:name="actor" tal:content="doc/date" />)
+       the <tal:date i18n:name="date" tal:content="doc/date" />)
       </tal:content>
      </li>
     </ul>
