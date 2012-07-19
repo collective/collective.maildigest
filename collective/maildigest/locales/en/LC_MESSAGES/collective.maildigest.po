@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.maildigest\n"
-"POT-Creation-Date: 2010-11-10 11:05+0000\n"
+"POT-Creation-Date: 2012-07-19 22:24+0000\n"
 "PO-Revision-Date: 2008-02-04 18:00+0000\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
@@ -14,3 +14,95 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.maildigest\n"
+
+#: ./action/digestemail-byfolder.py:64
+msgid "Activity digest"
+msgstr ""
+
+#: ./storage/__init__.py:120
+msgid "At each update"
+msgstr ""
+
+#: ./browser/templates/container-digest-subscribe.pt:33
+msgid "Cancel subscription"
+msgstr ""
+
+#: ./browser/templates/container-digest-subscribe.pt:13
+msgid "Change my subscription on this folder"
+msgstr ""
+
+#: ./browser/templates/container-digest-subscribe.pt:22
+#: ./storage/__init__.py:75
+msgid "Daily email"
+msgstr ""
+
+#: ./browser/templates/container-digest-subscribe.pt:10
+msgid "Follow activity on this folder"
+msgstr ""
+
+#: ./action/templates/digestemail-byfolder.pt:25
+msgid "Modified documents"
+msgstr ""
+
+#: ./storage/__init__.py:105
+msgid "Monthly email"
+msgstr ""
+
+#: ./action/templates/digestemail-byfolder.pt:12
+msgid "New documents"
+msgstr ""
+
+#: ./action/templates/digestemail-byfolder.pt:38
+msgid "Removed documents"
+msgstr ""
+
+#: ./browser/templates/container-digest-subscribe.pt:39
+msgid "Subscribe"
+msgstr ""
+
+#: ./browser/templates/container-digest-subscribe.pt:36
+msgid "Validate"
+msgstr ""
+
+#: ./browser/templates/container-digest-subscribe.pt:28
+#: ./storage/__init__.py:90
+msgid "Weekly email"
+msgstr ""
+
+#: ./browser/view.py:50
+msgid "You cancelled your subscription to digest email about activity on this folder"
+msgstr ""
+
+#: ./browser/view.py:46
+msgid "You subscribed to daily digest email about activity on this folder"
+msgstr ""
+
+#: ./browser/view.py:48
+msgid "You subscribed to weekly digest email about activity on this folder"
+msgstr ""
+
+#. Default: "(by ${actor}, the ${date})"
+#: ./action/templates/digestemail-byfolder.pt:19
+msgid "actor_and_date"
+msgstr ""
+
+#. Default: "Recent modifications have happen on the folders you have subscribed to"
+#: ./action/templates/digestemail-byfolder.pt:4
+msgid "digestemail-byfolders"
+msgstr ""
+
+#. Default: "You have subscribed to weekly digest on this folder"
+#: ./browser/templates/container-digest-icon.pt:8
+msgid "folder_digesticon_daily_title"
+msgstr ""
+
+#. Default: "Subscribe to weekly or daily digest of activity in this folder"
+#: ./browser/templates/container-digest-icon.pt:12
+msgid "folder_digesticon_title"
+msgstr ""
+
+#. Default: "You have subscribed to daily digest on this folder"
+#: ./browser/templates/container-digest-icon.pt:4
+msgid "folder_digesticon_weekly_title"
+msgstr ""
+

@@ -35,12 +35,12 @@
     <div class="formControls">
         <input tal:condition="not:view/subscribed_nothing"
                class="context" type="submit"
-               value="Validate" i18n:attributes="value" i18n:domain="plone" />
+               value="Validate" i18n:attributes="value" />
         <input tal:condition="view/subscribed_nothing"
                class="context" type="submit"
                value="Subscribe" i18n:attributes="value" />
         <input class="context" type="button" name="form.button.Cancel"
-               value="Cancel" i18n:attributes="value" />
+               value="Cancel" i18n:attributes="value"  i18n:domain="plone" />
     </div>
    </form>
  </div>
