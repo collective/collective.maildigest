@@ -38,13 +38,13 @@ class Unauthorized(BaseRule):
     """
 
     def filter(self, portal, subscriber, infos):
-        mtool = getToolByName(portal, 'portal_membership')
+        pas = getToolByName(portal, 'acl_users')
         ctool = getToolByName(portal, 'portal_catalog')
         usertype, userid = subscriber
         if usertype == 'email':
             allowed = ['Anonymous']
         elif usertype == 'member':
-            user = mtool.getMemberById(userid)
+            user = pas.getUserById(userid)
             allowed = ctool._listAllowedRolesAndUsers(user)
 
         filtered = {}
