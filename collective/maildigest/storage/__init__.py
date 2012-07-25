@@ -89,7 +89,6 @@ class WeeklyStorage(BaseStorage):
     label = _("Weekly")
 
     def purge_now(self):
-        return True
         last_purge = self.last_purge()
         now = DateTime()
         if (not last_purge) or now - last_purge > 6:
