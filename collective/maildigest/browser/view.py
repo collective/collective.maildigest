@@ -1,14 +1,11 @@
 from zope.interface import implements
-from zope.component import queryUtility, getUtility, getMultiAdapter
-from zope.component.interfaces import ComponentLookupError
+from zope.component import queryUtility, getUtility
 
 from Products.Five.browser import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from Products.CMFCore.interfaces import ISiteRoot
 from Products.CMFCore.utils import getToolByName
 
 from collective.subscribe.interfaces import ISubscriptionCatalog, IUIDStrategy
-from collective.subscribe.interfaces import ISubscribers, ISubscriptionKeys
+from collective.subscribe.interfaces import ISubscribers
 from collective.subscribe.subscriber import ItemSubscriber
 
 from ..interfaces import IDigestInfo, IDigestUtility

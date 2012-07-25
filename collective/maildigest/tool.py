@@ -6,7 +6,7 @@ from Products.CMFCore.utils import getToolByName
 from collective.subscribe.interfaces import ISubscriptionCatalog, IUIDStrategy
 
 from .interfaces import IDigestStorage, IDigestAction, IDigestFilterRule
-from zope.component._api import getUtilitiesFor
+from zope.component import getUtilitiesFor
 
 
 class DigestUtility(object):
@@ -47,7 +47,7 @@ class DigestUtility(object):
            apply registered strategies for user with filtered info
         """
         filter_rules = [r for n, r in getUtilitiesFor(IDigestFilterRule)]
-        digest_strategies =  [r for n, r in getUtilitiesFor(IDigestAction)]
+        digest_strategies = [r for n, r in getUtilitiesFor(IDigestAction)]
 
         for subscriber, info in digest_info.items():
             for rule in filter_rules:
