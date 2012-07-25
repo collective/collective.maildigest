@@ -36,10 +36,14 @@ class DigestSubscribe(DigestInfo):
 
     def __call__(self):
         self.update()
-        subscription = self.request['digest-subscription']
+        subscription = self.request.get('digest-subscription')
         statusmessage = IStatusMessage(self.request)
         self.utility.switch_subscription(self.subscriber, self.context, subscription)
-        if subscription == 'daily-digest':
+        msg_type = 'info'
+        if subscription is None:
+            message = _("Please select daily or weekly digest.")
+            msg_type = 'error'
+        elif subscription == 'daily-digest':
             message = _("You subscribed to daily digest email about activity on this folder")
         elif subscription == 'weekly-digest':
             message = _("You subscribed to weekly digest email about activity on this folder")
@@ -48,5 +52,5 @@ class DigestSubscribe(DigestInfo):
         else:
             raise ValueError
 
-        statusmessage.addStatusMessage(message, 'info')
+        statusmessage.addStatusMessage(message, msg_type)
         return self.context.absolute_url()
