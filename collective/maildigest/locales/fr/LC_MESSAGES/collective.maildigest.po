@@ -107,7 +107,7 @@ msgstr "Vous êtes abonné à un résumé hebdomadaire pour ce dossier"
 #. Default: "Subscribe to weekly or daily digest of activity in this folder"
 #: ./browser/templates/container-digest-icon.pt:12
 msgid "folder_digesticon_title"
-msgstr "S'abonner à un résumé réguler de l'activité sur ce dossier"
+msgstr "S'abonner à un résumé régulier de l'activité sur ce dossier"
 
 #. Default: "You have subscribed to daily digest on this folder"
 #: ./browser/templates/container-digest-icon.pt:4
