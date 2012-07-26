@@ -44,7 +44,7 @@ class DigestEmailMessage(BrowserView):
                                 'date': toLocTime(info['date'])}
                 else:
                     doc_brain = doc_brain[0]
-                    doc_info = {'title': doc_brain.Title,
+                    doc_info = {'title': doc_brain.Title or doc_brain.getId,
                                 'url': doc_brain.getURL(),
                                 'actor': info['actor'],
                                 'date': toLocTime(info['date'])}
