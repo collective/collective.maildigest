@@ -26,9 +26,10 @@ class DigestInfo(BrowserView):
         self.catalog = queryUtility(ISubscriptionCatalog)
         self.user = mtool.getAuthenticatedMember()
         self.user_id = self.user.getId()
+
         self.subscriber = ItemSubscriber(user=self.user_id)
-        self.subscribed_daily = len(self.catalog.search({'daily-digest': self.uid, 'member': self.user_id})) == 1
-        self.subscribed_weekly = len(self.catalog.search({'weekly-digest': self.uid, 'member': self.user_id})) == 1
+        self.subscribed_daily = ('member', self.user_id) in self.catalog.search({'daily-digest': self.uid})
+        self.subscribed_weekly = ('member', self.user_id) in self.catalog.search({'weekly-digest': self.uid})
         self.subscribed_nothing = not (self.subscribed_daily or self.subscribed_weekly)
 
 

@@ -20,6 +20,7 @@ class DigestUtility(object):
         if 'actor' not in info:
             user = getToolByName(folder, 'portal_membership').getAuthenticatedMember()
             info['actor'] = user.getId()
+            info['actor_fullname'] = user.getProperty('fullname', '') or info['actor']
 
         site = getToolByName(folder, 'portal_url').getPortalObject()
         catalog = queryUtility(ISubscriptionCatalog)

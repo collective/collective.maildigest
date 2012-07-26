@@ -101,7 +101,7 @@ msgstr "(par ${actor}, le ${date})"
 #. Default: "Recent modifications have happen on the folders you have subscribed to"
 #: ./action/templates/digestemail-byfolder.pt:5
 msgid "digestemail-byfolders"
-msgstr "Des modifications ont été apportées dans les dossiers auxquels vous vous êtes abonnés"
+msgstr "Bonjour,<br />Des modifications ont été apportées dans les dossiers auxquels vous vous êtes abonnés"
 
 #. Default: "You have subscribed to weekly digest on this folder"
 #: ./browser/templates/container-digest-icon.pt:8

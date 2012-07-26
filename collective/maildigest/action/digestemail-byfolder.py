@@ -40,13 +40,13 @@ class DigestEmailMessage(BrowserView):
                 doc_brain = ctool.unrestrictedSearchResults(UID=info['uid'])
                 if not doc_brain:
                     doc_info = {'title': info.get('title', ''),
-                                'actor': info['actor'],
+                                'actor': info['actor_fullname'],
                                 'date': toLocTime(info['date'])}
                 else:
                     doc_brain = doc_brain[0]
                     doc_info = {'title': doc_brain.Title or doc_brain.getId,
                                 'url': doc_brain.getURL(),
-                                'actor': info['actor'],
+                                'actor': info['actor_fullname'],
                                 'date': toLocTime(info['date'])}
 
                 folders[folder_uid].setdefault(activity, []).append(doc_info)
@@ -61,22 +61,24 @@ class DigestEmail(BaseAction):
     def execute(self, portal, storage, subscriber, info):
         mailhost = getUtility(IMailHost)
 
+        site_language = portal.portal_properties.site_properties
+        user_type, user_value = subscriber
+        if user_type == 'email':
+            mto = user_value
+            target_language = site_language
+        elif user_type == 'member':
+            user = portal.portal_membership.getMemberById(user_value)
+            target_language = user.getProperty('language')
+            mto = user.getProperty('email', site_language)
+            if not mto:
+                return
+
         subject = "[%s] %s" % (portal.Title(),
                                translate(_("${storage} activity digest",
             mapping={'storage': translate(storage.label, context=portal.REQUEST)}),
                                                        context=portal.REQUEST))
 
         mfrom = formataddr((portal.email_from_name, portal.email_from_address))
-
-        user_type, user_value = subscriber
-        if user_type == 'email':
-            mto = user_value
-        elif user_type == 'member':
-
-            user = portal.portal_membership.getMemberById(user_value)
-            mto = user.getProperty('email', '')
-            if not mto:
-                return
 
         message_view = portal.unrestrictedTraverse('digestemail-byfolder')
         message_view.info = deepcopy(info)
