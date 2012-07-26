@@ -158,7 +158,7 @@ class AddedAndModifiedBySame(BaseRule):
         for activity, activity_infos in infos.items():
             for info in activity_infos:
                 if activity == 'modify' \
-                   and (info['uid'], info['creator']) in added_and_modified_uid_actors:
+                   and (info['uid'], info['actor']) in added_and_modified_uid_actors:
                     pass
                 else:
                     filtered.setdefault(activity, []).append(deepcopy(info))
