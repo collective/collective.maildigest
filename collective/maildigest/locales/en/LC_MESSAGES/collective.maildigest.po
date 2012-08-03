@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.maildigest\n"
-"POT-Creation-Date: 2012-07-25 13:50+0000\n"
+"POT-Creation-Date: 2012-07-27 10:40+0000\n"
 "PO-Revision-Date: 2008-02-04 18:00+0000\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
@@ -15,11 +15,11 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.maildigest\n"
 
-#: ./action/digestemail-byfolder.py:65
+#: ./action/digestemail-byfolder.py:74
 msgid "${storage} activity digest"
 msgstr ""
 
-#: ./storage/__init__.py:119
+#: ./storage/__init__.py:118
 msgid "Automatic"
 msgstr ""
 
@@ -44,23 +44,23 @@ msgid "Follow activity on this folder"
 msgstr ""
 
 #: ./action/templates/digestemail-byfolder.pt:26
-msgid "Modified documents"
+msgid "Modified items"
 msgstr ""
 
-#: ./storage/__init__.py:104
+#: ./storage/__init__.py:103
 msgid "Monthly"
 msgstr ""
 
 #: ./action/templates/digestemail-byfolder.pt:13
-msgid "New documents"
+msgid "New items"
 msgstr ""
 
-#: ./browser/view.py:44
+#: ./browser/view.py:45
 msgid "Please select daily or weekly digest."
 msgstr ""
 
 #: ./action/templates/digestemail-byfolder.pt:39
-msgid "Removed documents"
+msgid "Removed items"
 msgstr ""
 
 #: ./browser/templates/container-digest-subscribe.pt:39
@@ -79,15 +79,15 @@ msgstr ""
 msgid "Weekly email"
 msgstr ""
 
-#: ./browser/view.py:51
+#: ./browser/view.py:52
 msgid "You cancelled your subscription to digest email about activity on this folder"
 msgstr ""
 
-#: ./browser/view.py:47
+#: ./browser/view.py:48
 msgid "You subscribed to daily digest email about activity on this folder"
 msgstr ""
 
-#: ./browser/view.py:49
+#: ./browser/view.py:50
 msgid "You subscribed to weekly digest email about activity on this folder"
 msgstr ""
 

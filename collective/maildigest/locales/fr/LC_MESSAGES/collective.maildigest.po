@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.maildigest\n"
-"POT-Creation-Date: 2012-07-25 13:50+0000\n"
+"POT-Creation-Date: 2012-07-27 10:40+0000\n"
 "PO-Revision-Date: 2012-07-25 15:51+0100\n"
 "Last-Translator: Vincent Fretin <vincent.fretin@gmail.com>\n"
 "Language-Team: French <plone-fr@lists.plone.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Domain: collective.maildigest\n"
 "X-Is-Fallback-For: fr-be fr-ca fr-lu fr-mc fr-ch fr-fr\n"
 
-#: ./action/digestemail-byfolder.py:65
+#: ./action/digestemail-byfolder.py:74
 msgid "${storage} activity digest"
 msgstr "Résumé ${storage} de l'activité"
 
-#: ./storage/__init__.py:119
+#: ./storage/__init__.py:118
 msgid "Automatic"
 msgstr "Automatique"
 
@@ -46,24 +46,24 @@ msgid "Follow activity on this folder"
 msgstr "Suivre l'activité sur ce dossier"
 
 #: ./action/templates/digestemail-byfolder.pt:26
-msgid "Modified documents"
-msgstr "Documents modifiés"
+msgid "Modified items"
+msgstr "Éléments modifiés"
 
-#: ./storage/__init__.py:104
+#: ./storage/__init__.py:103
 msgid "Monthly"
 msgstr "mensuel"
 
 #: ./action/templates/digestemail-byfolder.pt:13
-msgid "New documents"
-msgstr "Nouveaux documents"
+msgid "New items"
+msgstr "Nouveaux éléments"
 
-#: ./browser/view.py:44
+#: ./browser/view.py:45
 msgid "Please select daily or weekly digest."
 msgstr "Veuillez sélectionner email quotidien ou hebdomadaire."
 
 #: ./action/templates/digestemail-byfolder.pt:39
-msgid "Removed documents"
-msgstr "Documents supprimés"
+msgid "Removed items"
+msgstr "Éléments supprimés"
 
 #: ./browser/templates/container-digest-subscribe.pt:39
 msgid "Subscribe"
@@ -81,15 +81,15 @@ msgstr "hebdomadaire"
 msgid "Weekly email"
 msgstr "Email hebdomadaire"
 
-#: ./browser/view.py:51
+#: ./browser/view.py:52
 msgid "You cancelled your subscription to digest email about activity on this folder"
 msgstr "Vous avez annulé votre abonnement au suivi de l'activité sur ce dossier"
 
-#: ./browser/view.py:47
+#: ./browser/view.py:48
 msgid "You subscribed to daily digest email about activity on this folder"
 msgstr "Vous vous êtes abonné à un email résumant quotidiennement l'activité sur ce dossier"
 
-#: ./browser/view.py:49
+#: ./browser/view.py:50
 msgid "You subscribed to weekly digest email about activity on this folder"
 msgstr "Vous vous êtes abonné à un email résumant chaque semaine l'activité sur ce dossier"
 

@@ -8,8 +8,7 @@ from Products.MailHost.MailHost import formataddr
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 
-from .. import logger, DigestMessageFactory as _
-from ..interfaces import IDigestAction
+from .. import DigestMessageFactory as _
 from . import BaseAction
 
 
@@ -21,8 +20,6 @@ class DigestEmailMessage(BrowserView):
         ctool = getToolByName(self.context, 'portal_catalog')
         toLocTime = self.context.unrestrictedTraverse('@@plone').toLocalizedTime
         folders = {}
-
-        user_type = self.user_type
 
         for activity, activity_infos in self.info.items():
             for info in activity_infos:
@@ -61,22 +58,22 @@ class DigestEmail(BaseAction):
     def execute(self, portal, storage, subscriber, info):
         mailhost = getUtility(IMailHost)
 
-        site_language = portal.portal_properties.site_properties
+        site_language = portal.portal_properties.site_properties.getProperty('default_language')
         user_type, user_value = subscriber
         if user_type == 'email':
             mto = user_value
             target_language = site_language
         elif user_type == 'member':
             user = portal.portal_membership.getMemberById(user_value)
-            target_language = user.getProperty('language')
-            mto = user.getProperty('email', site_language)
+            target_language = user.getProperty('language', None) or site_language
+            mto = user.getProperty('email', None)
             if not mto:
                 return
 
         subject = "[%s] %s" % (portal.Title(),
                                translate(_("${storage} activity digest",
-            mapping={'storage': translate(storage.label, context=portal.REQUEST)}),
-                                                       context=portal.REQUEST))
+            mapping={'storage': storage.label}),
+            target_language=target_language))
 
         mfrom = formataddr((portal.email_from_name, portal.email_from_address))
 

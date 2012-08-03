@@ -10,7 +10,7 @@
       <a tal:content="folder/title" tal:attributes="href folder/url"></a>
     </h2>
     <tal:added condition="folder/add|nothing">
-    <h3 i18n:translate="">New documents
+    <h3 i18n:translate="">New items
     </h3>
     <ul>
      <li tal:repeat="doc folder/add">
@@ -23,7 +23,7 @@
     </ul>
     </tal:added>
     <tal:modified condition="folder/modify|nothing">
-    <h3 i18n:translate="">Modified documents
+    <h3 i18n:translate="">Modified items
     </h3>
     <ul>
      <li tal:repeat="doc folder/modify">
@@ -36,7 +36,7 @@
     </ul>
     </tal:modified>
     <tal:deleted condition="folder/delete|nothing">
-    <h3 i18n:translate="">Removed documents
+    <h3 i18n:translate="">Removed items
     </h3>
     <ul>
      <li tal:repeat="doc folder/delete">
