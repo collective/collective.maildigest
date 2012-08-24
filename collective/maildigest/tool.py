@@ -1,12 +1,12 @@
-from zope.component import getAdapters, queryUtility
+from zope.component import getAdapters, queryUtility, getUtilitiesFor
 from DateTime import DateTime
 
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 from collective.subscribe.interfaces import ISubscriptionCatalog, IUIDStrategy
 
 from .interfaces import IDigestStorage, IDigestAction, IDigestFilterRule
-from zope.component import getUtilitiesFor
 
 
 class DigestUtility(object):
@@ -25,7 +25,11 @@ class DigestUtility(object):
         site = getToolByName(folder, 'portal_url').getPortalObject()
         catalog = queryUtility(ISubscriptionCatalog)
         storages = getAdapters((site,), IDigestStorage)
-        uid = IUIDStrategy(folder)()
+        if IPloneSiteRoot.providedBy(folder):
+            uid = 'plonesite'
+        else:
+            uid = IUIDStrategy(folder)()
+
         info['folder-uid'] = uid
         for key, storage in storages:
             subscribers = catalog.search({'%s-digest' % key: uid})
@@ -59,7 +63,11 @@ class DigestUtility(object):
 
     def switch_subscription(self, subscriber, folder, storage_key):
         catalog = queryUtility(ISubscriptionCatalog)
-        uid = IUIDStrategy(folder)()
+        if IPloneSiteRoot.providedBy(folder):
+            uid = 'plonesite'
+        else:
+            uid = IUIDStrategy(folder)()
+
         site = getToolByName(folder, 'portal_url').getPortalObject()
         storages = getAdapters((site,), IDigestStorage)
         for name, storage in storages:

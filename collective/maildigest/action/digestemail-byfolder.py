@@ -7,6 +7,7 @@ from Products.MailHost.interfaces import IMailHost
 from Products.MailHost.MailHost import formataddr
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.interfaces import IPloneSiteRoot
 
 from .. import DigestMessageFactory as _
 from . import BaseAction
@@ -18,21 +19,27 @@ class DigestEmailMessage(BrowserView):
         """sort digest by folders
         """
         ctool = getToolByName(self.context, 'portal_catalog')
+        site = getToolByName(self.context, 'portal_url').getPortalObject()
         toLocTime = self.context.unrestrictedTraverse('@@plone').toLocalizedTime
-        folders = {}
 
+        folders = {}
         for activity, activity_infos in self.info.items():
             for info in activity_infos:
                 folder_uid = info['folder-uid']
                 if folder_uid not in folders:
                     if not folder_uid in folders:
-                        folder_brain = ctool.unrestrictedSearchResults(UID=info['folder-uid'])
-                        if len(folder_brain) < 1:
-                            continue
-                        folder_brain = folder_brain[0]
                         folder_uid = info['folder-uid']
-                        folders[folder_uid] = {'title': folder_brain.Title,
-                                               'url': folder_brain.getURL()}
+                        if folder_uid == 'plonesite':
+                            folders[folder_uid] = {'title': site.Title(),
+                                                   'url': site.absolute_url()}
+                        else:
+                            folder_brain = ctool.unrestrictedSearchResults(UID=folder_uid)
+                            if len(folder_brain) < 1:
+                                continue
+
+                            folder_brain = folder_brain[0]
+                            folders[folder_uid] = {'title': folder_brain.Title,
+                                                   'url': folder_brain.getURL()}
 
                 doc_brain = ctool.unrestrictedSearchResults(UID=info['uid'])
                 if not doc_brain:

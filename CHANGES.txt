@@ -1,20 +1,16 @@
 Changelog
 =========
 
-0.1.2 (unreleased)
-------------------
+0.2 (unreleased)
+----------------
 
-- Nothing changed yet.
-
-
-0.1.1 (2012-08-03)
-------------------
-
-- Nothing changed yet.
+- More robust: ignore not IUUIDAware contents,
+  manage subscriptions on site root.
+  [thomasdesvenain]
 
 
 0.1 (2012-08-03)
 ----------------
 
 - Package created using templer
-  []
+  [thomasdesvenain]
