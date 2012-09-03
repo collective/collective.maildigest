@@ -9,6 +9,9 @@ class DigestIcon(ViewletBase):
     def update(self):
         super(DigestIcon, self).update()
         self.anonymous = self.portal_state.anonymous()
+        if self.anonymous:
+            return
+
         context, request = self.context, self.request
         self.digestinfo = context.unrestrictedTraverse('digestinfo')
         self.digestinfo.update()

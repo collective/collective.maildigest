@@ -4,7 +4,7 @@ Changelog
 0.3.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Avoid Invalid error for anonymous on viewlet.
 
 
 0.3.1 (2012-08-24)
