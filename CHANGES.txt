@@ -4,6 +4,9 @@ Changelog
 0.3.2 (unreleased)
 ------------------
 
+- Avoid error on copy/paste action.
+  [thomasdesvenain]
+
 - Avoid Invalid error for anonymous on viewlet.
 
 

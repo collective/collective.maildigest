@@ -1,3 +1,4 @@
+from Acquisition import aq_parent
 from zope.component import getUtility
 
 from ..interfaces import IDigestUtility
@@ -9,8 +10,11 @@ def store_activity(document, event):
 
     if document.isTemporary():
         return
+    
+    folder = aq_parent(document)
+    if not folder:
+        return
 
-    folder = document.aq_parent
     utility = getUtility(IDigestUtility).store_activity(folder,
                                                         'add',
                                                         uid=IUUID(document))
