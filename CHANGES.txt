@@ -1,7 +1,7 @@
 Changelog
 =========
 
-0.3.2 (unreleased)
+0.3.2 (2012-12-16)
 ------------------
 
 - Avoid error on copy/paste action.
