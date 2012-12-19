@@ -1,4 +1,5 @@
 from zope.component import getAdapters, queryUtility, getUtilitiesFor
+from zope.component.hooks import getSite
 from DateTime import DateTime
 
 from Products.CMFCore.utils import getToolByName
@@ -17,12 +18,12 @@ class DigestUtility(object):
         if 'date' not in info:
             info['date'] = DateTime()
 
+        site = getToolByName(getSite(), 'portal_url').getPortalObject()
         if 'actor' not in info:
-            user = getToolByName(folder, 'portal_membership').getAuthenticatedMember()
+            user = getToolByName(site, 'portal_membership').getAuthenticatedMember()
             info['actor'] = user.getId()
             info['actor_fullname'] = user.getProperty('fullname', '') or info['actor']
 
-        site = getToolByName(folder, 'portal_url').getPortalObject()
         catalog = queryUtility(ISubscriptionCatalog)
         storages = getAdapters((site,), IDigestStorage)
         if IPloneSiteRoot.providedBy(folder):
