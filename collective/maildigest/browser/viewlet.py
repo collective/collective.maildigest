@@ -1,5 +1,9 @@
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets.common import ViewletBase
+from plone import api
+
+from collective.maildigest import DigestMessageFactory as _
+from collective.maildigest.tool import get_tool
 
 
 class DigestIcon(ViewletBase):
@@ -12,11 +16,17 @@ class DigestIcon(ViewletBase):
         if self.anonymous:
             return
 
-        context, request = self.context, self.request
-        self.digestinfo = context.unrestrictedTraverse('digestinfo')
-        self.digestinfo.update()
-        self.subscribed_daily = self.digestinfo.subscribed_daily
-        self.subscribed_weekly = self.digestinfo.subscribed_weekly
-        self.subscribed_nothing = self.digestinfo.subscribed_nothing
-        self.form_url = "%s/digest-subscribe" % self.context.absolute_url()
+        user_id = api.user.get_current().getId()
+        utility = get_tool()
+        storage = utility.get_subscription(user_id, self.context)
+        if not storage:
+            self.icon = 'maildigest.png'
+            self.title = _('folder_digesticon_title',
+                           default=u"Subscribe to weekly or daily digest of activity in this folder")
 
+        else:
+            self.icon = storage.icon
+            self.title = _('title_digesticon',
+                           u"You have subscribed to ${delay} digest on this folder")
+
+        self.form_url = "%s/digest-subscribe" % self.context.absolute_url()

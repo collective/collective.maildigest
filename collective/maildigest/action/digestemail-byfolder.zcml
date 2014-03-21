@@ -10,7 +10,7 @@
   <browser:page
     for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
     name="digestemail-byfolder"
-    class=".digestemail-byfolder.DigestEmailMessage"
+    class=".digestemail_byfolder.DigestEmailMessage"
     template="templates/digestemail-byfolder.pt"
     permission="zope2.View"
     />

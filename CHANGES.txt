@@ -1,8 +1,17 @@
 Changelog
 =========
 
-0.4 (unreleased)
+1.0 (unreleased)
 ----------------
+
+- Rewrite collective.maildigest api
+  so we don't deal with collective.subscribe api outside of main utility.
+  Use plone.api.
+  [thomasdesvenain]
+
+- Added ui for monthly email.
+  More generic management of delays.
+  [thomasdesvenain]
 
 - Do not break site when it is not installed.
   Do not need to install collective.inviting.
@@ -13,6 +22,10 @@ Changelog
 
 - New bootstrap and buildout.
   [thomasdesvenain]
+
+IMPORTANT: because of changes in storage, before updating to this release,
+first run www.mysite.com/@@digest-cron?maildigest-debug-mode=1,
+unless you will loose some notifications.
 
 
 0.3.3 (2014-01-28)

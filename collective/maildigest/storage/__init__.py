@@ -22,6 +22,7 @@ class BaseStorage(object):
 
     key = NotImplemented
     label = NotImplemented
+    icon =  'maildigest-weekly.png'
 
     def __init__(self, context):
         self.annotations = IAnnotations(context)
@@ -39,7 +40,7 @@ class BaseStorage(object):
             self.annotations[key][subscriber] = PersistentDict()
 
         if activity_key not in self.annotations[key][subscriber]:
-             self.annotations[key][subscriber][activity_key] = PersistentList()
+            self.annotations[key][subscriber][activity_key] = PersistentList()
 
         self.annotations[key][subscriber][activity_key].append(value)
 
@@ -73,6 +74,8 @@ class DailyStorage(BaseStorage):
 
     key = 'daily'
     label = _("Daily")
+    icon =  'maildigest-daily.png'
+    frequency = 24
 
     def purge_now(self):
         last_purge = self.last_purge()
@@ -87,6 +90,7 @@ class WeeklyStorage(BaseStorage):
 
     key = 'weekly'
     label = _("Weekly")
+    frequency = 24*7
 
     def purge_now(self):
         now = DateTime()
@@ -104,7 +108,7 @@ class MonthlyStorage(BaseStorage):
 
     key = 'monthly'
     label = _("Monthly")
-
+    frequency = 24*31
 
     def purge_now(self):
         last_purge = self.last_purge()
@@ -119,6 +123,7 @@ class ManualStorage(BaseStorage):
 
     key = 'manual'
     label = _("Automatic")
+    frequency = 0
 
     def purge_now(self):
         return True

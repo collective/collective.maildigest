@@ -6,11 +6,10 @@ from zope.component import getUtility
 from Products.MailHost.interfaces import IMailHost
 from Products.MailHost.MailHost import formataddr
 from Products.Five.browser import BrowserView
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.interfaces import IPloneSiteRoot
+from plone import api
 
-from .. import DigestMessageFactory as _
-from . import BaseAction
+from collective.maildigest import DigestMessageFactory as _
+from collective.maildigest.action import BaseAction
 
 
 class DigestEmailMessage(BrowserView):
@@ -18,8 +17,8 @@ class DigestEmailMessage(BrowserView):
     def folders(self):
         """sort digest by folders
         """
-        ctool = getToolByName(self.context, 'portal_catalog')
-        site = getToolByName(self.context, 'portal_url').getPortalObject()
+        ctool = api.portal.get_tool('portal_catalog')
+        site = api.portal.get()
         toLocTime = self.context.unrestrictedTraverse('@@plone').toLocalizedTime
 
         folders = {}

@@ -1,9 +1,7 @@
-from zope.component import getUtility
-
 from plone.uuid.interfaces import IUUID, IUUIDAware
 
-from collective.maildigest.interfaces import IDigestUtility
 from collective.maildigest.browser.interfaces import ILayer
+from collective.maildigest.tool import get_tool
 
 
 def store_activity(document, event):
@@ -14,5 +12,4 @@ def store_activity(document, event):
         return
 
     folder = document.aq_parent
-    getUtility(IDigestUtility).store_activity(folder, 'modify',
-                                              uid=IUUID(document))
+    get_tool().store_activity(folder, 'modify', uid=IUUID(document))

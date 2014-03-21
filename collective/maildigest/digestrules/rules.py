@@ -1,7 +1,6 @@
 from copy import deepcopy
 
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.CatalogTool import allowedRolesAndUsers
 
 
 class BaseRule(object):

@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import os
 
-version = '0.3.4.dev0'
+version = '0.4.0.dev0'
 
 setup(name='collective.maildigest',
       version=version,
@@ -15,6 +15,7 @@ setup(name='collective.maildigest',
         "Framework :: Plone :: 4.0",
         "Framework :: Plone :: 4.1",
         "Framework :: Plone :: 4.2",
+        "Framework :: Plone :: 4.3",
         ],
       keywords='',
       author='',
@@ -28,7 +29,8 @@ setup(name='collective.maildigest',
       install_requires=[
           'setuptools',
           # -*- Extra requirements: -*-
-          'collective.inviting'
+          'collective.inviting',
+          'plone.api',
       ],
       extras_require = dict(
           test=['plone.app.testing'],

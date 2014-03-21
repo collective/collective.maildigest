@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.maildigest\n"
-"POT-Creation-Date: 2012-07-27 10:40+0000\n"
+"POT-Creation-Date: 2014-03-21 18:12+0000\n"
 "PO-Revision-Date: 2008-02-04 18:00+0000\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
@@ -15,15 +15,19 @@ msgstr ""
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: collective.maildigest\n"
 
-#: ./action/digestemail-byfolder.py:74
+#: ./browser/view.py:30
+msgid "${delay} email"
+msgstr ""
+
+#: ./action/digestemail-byfolder.py:81
 msgid "${storage} activity digest"
 msgstr ""
 
-#: ./storage/__init__.py:118
+#: ./storage/__init__.py:125
 msgid "Automatic"
 msgstr ""
 
-#: ./browser/templates/container-digest-subscribe.pt:33
+#: ./browser/templates/container-digest-subscribe.pt:31
 msgid "Cancel subscription"
 msgstr ""
 
@@ -31,12 +35,8 @@ msgstr ""
 msgid "Change my subscription on this folder"
 msgstr ""
 
-#: ./storage/__init__.py:75
+#: ./storage/__init__.py:76
 msgid "Daily"
-msgstr ""
-
-#: ./browser/templates/container-digest-subscribe.pt:22
-msgid "Daily email"
 msgstr ""
 
 #: ./browser/templates/container-digest-subscribe.pt:10
@@ -47,7 +47,7 @@ msgstr ""
 msgid "Modified items"
 msgstr ""
 
-#: ./storage/__init__.py:103
+#: ./storage/__init__.py:110
 msgid "Monthly"
 msgstr ""
 
@@ -55,7 +55,7 @@ msgstr ""
 msgid "New items"
 msgstr ""
 
-#: ./browser/view.py:45
+#: ./browser/view.py:50
 msgid "Please select daily or weekly digest."
 msgstr ""
 
@@ -63,32 +63,20 @@ msgstr ""
 msgid "Removed items"
 msgstr ""
 
-#: ./browser/templates/container-digest-subscribe.pt:39
+#: ./browser/templates/container-digest-subscribe.pt:37
 msgid "Subscribe"
 msgstr ""
 
-#: ./browser/templates/container-digest-subscribe.pt:36
+#: ./browser/templates/container-digest-subscribe.pt:34
 msgid "Validate"
 msgstr ""
 
-#: ./storage/__init__.py:89
+#: ./storage/__init__.py:92
 msgid "Weekly"
 msgstr ""
 
-#: ./browser/templates/container-digest-subscribe.pt:28
-msgid "Weekly email"
-msgstr ""
-
-#: ./browser/view.py:52
+#: ./browser/view.py:53
 msgid "You cancelled your subscription to digest email about activity on this folder"
-msgstr ""
-
-#: ./browser/view.py:48
-msgid "You subscribed to daily digest email about activity on this folder"
-msgstr ""
-
-#: ./browser/view.py:50
-msgid "You subscribed to weekly digest email about activity on this folder"
 msgstr ""
 
 #. Default: "(by ${actor}, the ${date})"
@@ -101,18 +89,18 @@ msgstr ""
 msgid "digestemail-byfolders"
 msgstr ""
 
-#. Default: "You have subscribed to weekly digest on this folder"
-#: ./browser/templates/container-digest-icon.pt:8
-msgid "folder_digesticon_daily_title"
-msgstr ""
-
 #. Default: "Subscribe to weekly or daily digest of activity in this folder"
-#: ./browser/templates/container-digest-icon.pt:12
+#: ./browser/viewlet.py:25
 msgid "folder_digesticon_title"
 msgstr ""
 
-#. Default: "You have subscribed to daily digest on this folder"
-#: ./browser/templates/container-digest-icon.pt:4
-msgid "folder_digesticon_weekly_title"
+#. Default: "You subscribed to ${delay} digest email about activity on this folder"
+#: ./browser/view.py:56
+msgid "msg_subscribed_digest"
+msgstr ""
+
+#. Default: "You have subscribed to ${delay} digest on this folder"
+#: ./browser/viewlet.py:30
+msgid "title_digesticon"
 msgstr ""
 
