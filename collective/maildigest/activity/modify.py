@@ -1,13 +1,18 @@
 from zope.component import getUtility
 
-from ..interfaces import IDigestUtility
 from plone.uuid.interfaces import IUUID, IUUIDAware
 
+from collective.maildigest.interfaces import IDigestUtility
+from collective.maildigest.browser.interfaces import ILayer
+
+
 def store_activity(document, event):
+    if not ILayer.providedBy(getattr(document, 'REQUEST', None)):
+        return
+
     if not IUUIDAware.providedBy(document):
         return
 
     folder = document.aq_parent
-    utility = getUtility(IDigestUtility).store_activity(folder,
-                                                        'modify',
-                                                        uid=IUUID(document))
+    getUtility(IDigestUtility).store_activity(folder, 'modify',
+                                              uid=IUUID(document))
