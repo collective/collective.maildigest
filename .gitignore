@@ -1,4 +1,12 @@
 *.pyc
+*.mo
 *.egg-info
 *.project
 *.pydevproject
+parts/
+bin/
+develop-eggs/
+var/
+.installed.cfg
+.mr.developer.cfg
+src/
