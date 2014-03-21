@@ -5,6 +5,7 @@ Changelog
 ----------------
 
 - Do not break site when it is not installed.
+  Do not need to install collective.inviting.
   [thomasdesvenain]
 
 - Plone 4.2+ and recent jQuery compatibility.
