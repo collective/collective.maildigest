@@ -31,7 +31,7 @@ setup(name='collective.maildigest',
           'collective.inviting'
       ],
       extras_require = dict(
-          tests=['plone.app.testing'],
+          test=['plone.app.testing'],
       ),
       entry_points="""
       # -*- Entry points: -*-

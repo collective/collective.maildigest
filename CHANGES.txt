@@ -4,7 +4,11 @@ Changelog
 0.3.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Plone 4.2+ compatibility.
+  [thomasdesvenain]
+
+- New bootstrap and buildout.
+  [thomasdesvenain]
 
 
 0.3.3 (2014-01-28)
