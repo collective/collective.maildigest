@@ -1,0 +1,3 @@
+- We may have a separate registry of activities to avoid to store each activity
+  on each subscriber
+- Using BTrees

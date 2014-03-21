@@ -1,4 +1,6 @@
-<div tal:define="folders view/folders"
+<div xmlns:tal="http://xml.zope.org/namespaces/tal"
+     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+     tal:define="folders view/folders"
      tal:condition="folders"
      i18n:domain="collective.maildigest">
   <div>
@@ -14,35 +16,49 @@
     </h3>
     <ul>
      <li tal:repeat="doc folder/add">
-      <a tal:attributes="href doc/url" tal:content="doc/title" />
+      <a tal:attributes="href doc/url" tal:content="doc/title"></a>
       <tal:content i18n:translate="actor_and_date">
-      (by <span i18n:name="actor" tal:content="doc/actor" />,
+      (by <span i18n:name="actor" tal:content="doc/actor"></span>,
        the <tal:date i18n:name="date" tal:content="doc/date" />)
       </tal:content>
      </li>
     </ul>
     </tal:added>
     <tal:modified condition="folder/modify|nothing">
-    <h3 i18n:translate="">Modified items
-    </h3>
+    <h3 i18n:translate="">Modified items</h3>
     <ul>
      <li tal:repeat="doc folder/modify">
-      <a tal:attributes="href doc/url" tal:content="doc/title" />
+      <a tal:attributes="href doc/url" tal:content="doc/title"></a>
       <tal:content i18n:translate="actor_and_date">
-      (by <span i18n:name="actor" tal:content="doc/actor" />,
+      (by <span i18n:name="actor" tal:content="doc/actor"></span>,
        the <tal:date i18n:name="date" tal:content="doc/date" />)
       </tal:content>
      </li>
     </ul>
     </tal:modified>
+    <tal:moved condition="folder/move|nothing">
+    <h3 i18n:translate="">Items moved into the folder</h3>
+    <ul>
+     <li tal:repeat="doc folder/move">
+      <a tal:attributes="href doc/url" tal:content="doc/title"></a>
+      <span i18n:translate="moved_from" tal:condition="doc/from_url">
+        from <a i18n:name="oldparent" tal:attributes="href doc/from_url"
+                tal:content="doc/from_title"></a>
+      </span>
+      <tal:content i18n:translate="actor_and_date">
+      (by <span i18n:name="actor" tal:content="doc/actor"></span>,
+       the <tal:date i18n:name="date" tal:content="doc/date" />)
+      </tal:content>
+     </li>
+    </ul>
+    </tal:moved>
     <tal:deleted condition="folder/delete|nothing">
-    <h3 i18n:translate="">Removed items
-    </h3>
+    <h3 i18n:translate="">Removed items</h3>
     <ul>
      <li tal:repeat="doc folder/delete">
       <tal:title content="doc/title" />
       <tal:content i18n:translate="actor_and_date">
-      (by <span i18n:name="actor" tal:content="doc/actor" />,
+      (by <span i18n:name="actor" tal:content="doc/actor"></span>,
        the <tal:date i18n:name="date" tal:content="doc/date" />)
       </tal:content>
      </li>

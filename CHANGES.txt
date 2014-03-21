@@ -4,6 +4,10 @@ Changelog
 1.0 (unreleased)
 ----------------
 
+- Added move activity notified when we cut/paste content.
+  Copied contents notifies add activity.
+  [thomasdesvenain]
+
 - Rewrite collective.maildigest api
   so we don't deal with collective.subscribe api outside of main utility.
   Use plone.api.

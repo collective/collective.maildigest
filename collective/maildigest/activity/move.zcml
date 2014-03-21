@@ -4,14 +4,14 @@
 
     <subscriber
       for="Products.CMFCore.interfaces.IContentish
-           zope.lifecycleevent.interfaces.IObjectCreatedEvent"
-      handler=".add.store_activity"
+           zope.lifecycleevent.interfaces.IObjectMovedEvent"
+      handler=".move.store_activity"
       />
 
     <subscriber
       for="Products.CMFCore.interfaces.IContentish
            zope.lifecycleevent.interfaces.IObjectCopiedEvent"
-      handler=".add.store_activity"
+      handler=".move.store_activity"
       />
 
 </configure>

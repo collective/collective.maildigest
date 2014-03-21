@@ -55,7 +55,7 @@ class DigestUtility(object):
             info['date'] = DateTime()
 
         if 'actor' not in info:
-            user = api.portal.get_tool('portal_membership').getAuthenticatedMember()
+            user = api.user.get_current()
             info['actor'] = user.getId()
             info['actor_fullname'] = user.getProperty('fullname', '') or info['actor']
 

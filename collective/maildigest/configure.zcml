@@ -16,6 +16,7 @@
 
   <include package=".activity" file="add.zcml" />
   <include package=".activity" file="modify.zcml" />
+  <include package=".activity" file="move.zcml" />
   <include package=".activity" file="delete.zcml" />
 
   <include package=".digestrules" file="addedandremoved.zcml" />
