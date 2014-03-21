@@ -7,7 +7,7 @@ Changelog
 - Do not break site when it is not installed.
   [thomasdesvenain]
 
-- Plone 4.2+ compatibility.
+- Plone 4.2+ and recent jQuery compatibility.
   [thomasdesvenain]
 
 - New bootstrap and buildout.
