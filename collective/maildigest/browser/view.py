@@ -13,7 +13,7 @@ from collective.maildigest import DigestMessageFactory as _
 class DigestInfo(BrowserView):
 
     implements(IDigestInfo)
-    subscribed_nothing = True
+    parent_subscribed = False
 
     def update(self):
         context = self.context
@@ -22,7 +22,7 @@ class DigestInfo(BrowserView):
         user_id = user.getId()
 
         self.digest_delays = []
-        subscribed_storage = utility.get_subscription(user_id, context)
+        subscribed_storage, recursive = utility.get_subscription(user_id, context, root=True)
         for name, storage in utility.get_storages(sort=True):
             self.digest_delays.append({
                'name': name,
@@ -33,8 +33,13 @@ class DigestInfo(BrowserView):
                                    }),
                 })
 
+        self.recursive_subscription = recursive
         self.subscribed_nothing = not subscribed_storage
 
+        if not subscribed_storage:
+            parent_subscribed_storage, recursive = utility.get_subscription(user_id, context)
+            if parent_subscribed_storage:
+                self.parent_subscribed = True
 
 class DigestSubscribe(BrowserView):
 
@@ -44,7 +49,8 @@ class DigestSubscribe(BrowserView):
         user_id = user.getId()
         subscription = self.request.get('digest-subscription')
         statusmessage = IStatusMessage(self.request)
-        utility.switch_subscription(user_id, self.context, subscription)
+        recursive = bool(self.request.get('digest-subscription-recursive', False))
+        utility.switch_subscription(user_id, self.context, subscription, recursive)
         msg_type = 'info'
         if subscription is None:
             message = _("Please select daily or weekly digest.")
@@ -57,6 +63,7 @@ class DigestSubscribe(BrowserView):
                         default="You subscribed to ${delay} digest email about activity on this folder",
                         mapping={'delay': translate(storage.label,
                                                     context=self.request).lower()})
+
 
         statusmessage.addStatusMessage(message, msg_type)
         return self.context.absolute_url()

@@ -1,3 +1,6 @@
+For a 1.0 release :
+
 - We may have a separate registry of activities to avoid to store each activity
-  on each subscriber
-- Using BTrees
+  on each subscriber.
+- Email has to be pluggable (one activity = one plugin).
+- Documentation

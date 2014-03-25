@@ -1,3 +1,4 @@
+from Acquisition import aq_chain
 from DateTime import DateTime
 from zope.component import getAdapters, getAdapter
 from zope.component import getUtility
@@ -22,14 +23,21 @@ class DigestUtility(object):
             self._catalog = queryUtility(ISubscriptionCatalog)
         return self._catalog
 
-    def _get_key(self, storage_id):
-        return '%s.%s' % (STORAGE_KEY_PREFIX, storage_id)
+    def _get_key(self, storage_id, recursive=False):
+        key = '%s.%s' % (STORAGE_KEY_PREFIX, storage_id)
+        if recursive:
+            return key + '.RECURSIVE'
+        else:
+            return key
 
     def _get_uid(self, content):
-        if IPloneSiteRoot.providedBy(content):
-            return 'plonesite'
-        else:
-            return IUIDStrategy(content)()
+        try:
+            if IPloneSiteRoot.providedBy(content):
+                return 'plonesite'
+            else:
+                return IUIDStrategy(content)()
+        except TypeError:
+            return None
 
     def get_storages(self, sort=False):
         """Get all storages
@@ -59,11 +67,10 @@ class DigestUtility(object):
             info['actor'] = user.getId()
             info['actor_fullname'] = user.getProperty('fullname', '') or info['actor']
 
-        catalog = self._get_catalog()
-        uid = self._get_uid(folder)
-        info['folder-uid'] = uid
+        folder_uid = self._get_uid(folder)
+        info['folder-uid'] = folder_uid
         for storage_id, storage in self.get_storages():
-            subscribers = catalog.search({self._get_key(storage_id): uid})
+            subscribers = self.get_subscribed(folder, storage_id)
             for subscriber in subscribers:
                 storage.store_activity(subscriber, activity_key, info)
 
@@ -91,7 +98,7 @@ class DigestUtility(object):
             for action in digest_strategies:
                 action(site, storage, subscriber, info)
 
-    def switch_subscription(self, user_id, folder, storage_id):
+    def switch_subscription(self, user_id, folder, storage_id, recursive=False):
         """Change the subscription of the subscriber on the folder
             @param user_id: str - user id
             @param folder: object
@@ -101,26 +108,66 @@ class DigestUtility(object):
         catalog = self._get_catalog()
         uid = self._get_uid(folder)
         for name, storage in self.get_storages():
+            # unindex all user subscriptions on the folder (recursive and not)
+            # not priced robustness...
+            catalog.unindex(subscriber, uid, self._get_key(name, False))
+            catalog.unindex(subscriber, uid, self._get_key(name, True))
+
+        for name, storage in self.get_storages():
             if name == storage_id:
-                catalog.index(subscriber, uid, self._get_key(name))
+                catalog.index(subscriber, uid, self._get_key(name, recursive))
             else:
                 storage.purge_user(subscriber)
-                catalog.unindex(subscriber, uid, self._get_key(name))
 
-    def get_subscription(self, user_id, folder):
+    def get_subscription(self, user_id, folder, root=False):
         """Get the id of the storage selected by the subscriber on the folder
             @param user_id: str - user id
             @param folder: object
-            @return storage: object - IDigestStorage utility
+            @param root: return only root subscription of a recursive subscription
+            @return storage, recursive: object, bool - IDigestStorage utility
         """
-        uid = self._get_uid(folder)
+        folder_uid = self._get_uid(folder)
         catalog = self._get_catalog()
         for storage_id, storage in self.get_storages():
-            storage_key = self._get_key(storage_id)
-            if ('member', user_id) in catalog.search({storage_key: uid}):
-                return storage
-        else:
-            return None
+            # get direct subscription
+            if ('member', user_id) in catalog.search(
+                        {self._get_key(storage_id): folder_uid}):
+                return storage, False
+
+            # search recursive subscriptions
+            rec_storage_id = self._get_key(storage_id, True)
+            for step in aq_chain(folder):
+                step_uid = self._get_uid(step)
+                if step_uid and catalog.search({rec_storage_id: step_uid}):
+                    return storage, True
+                if root: # check only folder itself
+                    break
+
+        return None, None
+
+    def get_subscribed(self, folder, storage_id):
+        """Get the users who subscribed to the
+            @param user_id: str - user id
+            @param folder: object
+            @param recursive: check if we have a recursive subscription on a parent folder
+            @return storage: object - IDigestStorage utility
+        """
+        storage_key = self._get_key(storage_id, recursive=False)
+        catalog = self._get_catalog()
+        # non-recursively subscribed
+        subscribers = catalog.search({storage_key: self._get_uid(folder)})
+        subscribers = set(subscribers)
+
+        # recursively subscribed
+        rec_storage_key = self._get_key(storage_id, recursive=True)
+        for parent in aq_chain(folder):
+            # search the recursive subscribers of all parents folder
+            parent_uid = self._get_uid(parent)
+            if parent_uid:
+                subscribers = subscribers.union(
+                                catalog.search({rec_storage_key: parent_uid}))
+
+        return tuple(subscribers)
 
 def get_tool():
     return getUtility(IDigestUtility)

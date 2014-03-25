@@ -11,8 +11,9 @@ from zope.annotation.interfaces import IAnnotations
 
 from plone.app.layout.navigation.interfaces import INavigationRoot
 
-from ..interfaces import IDigestStorage
-from .. import DigestMessageFactory as _
+from collective.maildigest.interfaces import IDigestStorage
+from collective.maildigest import DigestMessageFactory as _
+from collective.maildigest.tool import STORAGE_KEY_PREFIX
 
 
 class BaseStorage(object):
@@ -27,12 +28,20 @@ class BaseStorage(object):
     def __init__(self, context):
         self.annotations = IAnnotations(context)
 
+    def _get_key(self):
+        return '%s.%s' % (STORAGE_KEY_PREFIX, self.key)
+
     def purge_now(self):
         raise NotImplementedError
 
     def store_activity(self, subscriber, activity_key, info):
+        """Store an activity for a subscriber
+        @param subscriber: str - user id
+        @param activity_key: str - id of type of activity ('add', 'delete', etc)
+        @param info: dict - information about activity
+        """
         value = PersistentDict(**info)
-        key = '%s-digest' % self.key
+        key = self._get_key()
         if not key in self.annotations:
             self.annotations[key] = OOBTree()
 
@@ -45,10 +54,10 @@ class BaseStorage(object):
         self.annotations[key][subscriber][activity_key].append(value)
 
     def pop(self):
-        """Gets
+        """Get all activities and purge them
         """
-        key = '%s-digest' % self.key
-        self.annotations['%s-digest-last-purge' % key] = DateTime()
+        key = self._get_key()
+        self.annotations[key + '.lastpurge'] = DateTime()
         if not key in self.annotations:
             return {}
 
@@ -57,17 +66,21 @@ class BaseStorage(object):
         return activity
 
     def last_purge(self):
-        key = '%s-digest-last-purge' % self.key
-        if not self.annotations.has_key(key):
+        """Get date of last purge
+        """
+        key = self._get_key()
+        if not self.annotations.has_key(key + '.lastpurge'):
             return None
         else:
             return self.annotations[key]
 
-    def purge_user(self, subscriber):
-        key = '%s-digest' % self.key
+    def purge_user(self, user_id):
+        """Remove activities subscribed for this user
+        """
+        key = self._get_key()
         if key in self.annotations:
-            if subscriber in self.annotations[key]:
-                del self.annotations[key][subscriber]
+            if user_id in self.annotations[key]:
+                del self.annotations[key][user_id]
 
 
 class DailyStorage(BaseStorage):

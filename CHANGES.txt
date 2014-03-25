@@ -1,8 +1,12 @@
 Changelog
 =========
 
-1.0 (unreleased)
-----------------
+0.9.0 (unreleased)
+------------------
+
+- We can select recursive subscription : user can choose to be notified
+  to the activity in the subfolders of the subscription folder.
+  [thomasdesvenain]
 
 - Added move activity notified when we cut/paste content.
   Copied contents notifies add activity.
@@ -25,6 +29,9 @@ Changelog
   [thomasdesvenain]
 
 - New bootstrap and buildout.
+  [thomasdesvenain]
+
+- Added tests.
   [thomasdesvenain]
 
 IMPORTANT: because of changes in storage, before updating to this release,

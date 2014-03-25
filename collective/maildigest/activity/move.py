@@ -5,6 +5,10 @@ from collective.maildigest.browser.interfaces import ILayer
 from collective.maildigest.tool import get_tool
 
 def store_activity(document, event):
+    if not event.oldParent:
+        # this is not a move, this is an adding
+        return
+
     if not ILayer.providedBy(getattr(document, 'REQUEST', None)):
         return
 

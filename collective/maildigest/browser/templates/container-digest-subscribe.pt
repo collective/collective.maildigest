@@ -13,7 +13,10 @@
    <h1 i18n:translate="" tal:condition="not:view/subscribed_nothing">
       Change my subscription on this folder
    </h1>
-
+   <dl tal:condition="view/parent_subscribed" class="portalMessage warning">
+     <dt i18n:translate="" i18n:domain="plone">Warning</dt>
+     <dd i18n:translate="msg_parent_subscribed">You are subscribed to this folder from a parent folder</dd>
+   </dl>
    <form method="POST" action="digest-subscribe-submit">
     <div class="field" tal:repeat="delay view/digest_delays">
         <input type="radio" id="daily" name="digest-subscription"
@@ -29,6 +32,11 @@
         <input type="radio" id="unsubscribe" name="digest-subscription"
                value="cancel-subscription" />
         <label for="unsubscribe" i18n:translate="">Cancel subscription</label>
+    </div>
+    <div class="field">
+        <input type="checkbox" id="recursive" name="digest-subscription-recursive"
+               tal:attributes="checked view/recursive_subscription|nothing" />
+        <label for="recursive" i18n:translate="">Watch also all sub-folders</label>
     </div>
     <div class="formControls">
         <input tal:condition="not:view/subscribed_nothing"

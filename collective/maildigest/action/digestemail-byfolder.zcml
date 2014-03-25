@@ -4,7 +4,7 @@
     i18n_domain="collective.maildigest">
 
   <utility name="digestemail-byfolder"
-           factory=".digestemail-byfolder.DigestEmail"
+           factory=".digestemail_byfolder.DigestEmail"
            provides="..interfaces.IDigestAction" />
 
   <browser:page

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.maildigest\n"
-"POT-Creation-Date: 2014-03-21 18:12+0000\n"
+"POT-Creation-Date: 2014-03-21 19:42+0000\n"
 "PO-Revision-Date: 2008-02-04 18:00+0000\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
@@ -19,7 +19,7 @@ msgstr ""
 msgid "${delay} email"
 msgstr ""
 
-#: ./action/digestemail-byfolder.py:81
+#: ./action/digestemail_byfolder.py:87
 msgid "${storage} activity digest"
 msgstr ""
 
@@ -43,7 +43,11 @@ msgstr ""
 msgid "Follow activity on this folder"
 msgstr ""
 
-#: ./action/templates/digestemail-byfolder.pt:26
+#: ./action/templates/digestemail-byfolder.pt:40
+msgid "Items moved into the folder"
+msgstr ""
+
+#: ./action/templates/digestemail-byfolder.pt:28
 msgid "Modified items"
 msgstr ""
 
@@ -51,7 +55,7 @@ msgstr ""
 msgid "Monthly"
 msgstr ""
 
-#: ./action/templates/digestemail-byfolder.pt:13
+#: ./action/templates/digestemail-byfolder.pt:15
 msgid "New items"
 msgstr ""
 
@@ -59,7 +63,7 @@ msgstr ""
 msgid "Please select daily or weekly digest."
 msgstr ""
 
-#: ./action/templates/digestemail-byfolder.pt:39
+#: ./action/templates/digestemail-byfolder.pt:56
 msgid "Removed items"
 msgstr ""
 
@@ -80,18 +84,23 @@ msgid "You cancelled your subscription to digest email about activity on this fo
 msgstr ""
 
 #. Default: "(by ${actor}, the ${date})"
-#: ./action/templates/digestemail-byfolder.pt:20
+#: ./action/templates/digestemail-byfolder.pt:22
 msgid "actor_and_date"
 msgstr ""
 
 #. Default: "Recent modifications have happen on the folders you have subscribed to"
-#: ./action/templates/digestemail-byfolder.pt:5
+#: ./action/templates/digestemail-byfolder.pt:7
 msgid "digestemail-byfolders"
 msgstr ""
 
 #. Default: "Subscribe to weekly or daily digest of activity in this folder"
-#: ./browser/viewlet.py:25
+#: ./browser/viewlet.py:24
 msgid "folder_digesticon_title"
+msgstr ""
+
+#. Default: "from ${oldparent}"
+#: ./action/templates/digestemail-byfolder.pt:45
+msgid "moved_from"
 msgstr ""
 
 #. Default: "You subscribed to ${delay} digest email about activity on this folder"
@@ -100,7 +109,7 @@ msgid "msg_subscribed_digest"
 msgstr ""
 
 #. Default: "You have subscribed to ${delay} digest on this folder"
-#: ./browser/viewlet.py:30
+#: ./browser/viewlet.py:29
 msgid "title_digesticon"
 msgstr ""
 
