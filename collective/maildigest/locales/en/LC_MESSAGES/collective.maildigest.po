@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: collective.maildigest\n"
-"POT-Creation-Date: 2014-03-21 19:42+0000\n"
+"POT-Creation-Date: 2014-03-25 18:16+0000\n"
 "PO-Revision-Date: 2008-02-04 18:00+0000\n"
 "Last-Translator: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
 "Language-Team: Plone i18n <plone-i18n@lists.sourceforge.net>\n"
@@ -23,11 +23,11 @@ msgstr ""
 msgid "${storage} activity digest"
 msgstr ""
 
-#: ./storage/__init__.py:125
+#: ./storage/__init__.py:138
 msgid "Automatic"
 msgstr ""
 
-#: ./browser/templates/container-digest-subscribe.pt:31
+#: ./browser/templates/container-digest-subscribe.pt:34
 msgid "Cancel subscription"
 msgstr ""
 
@@ -35,7 +35,7 @@ msgstr ""
 msgid "Change my subscription on this folder"
 msgstr ""
 
-#: ./storage/__init__.py:76
+#: ./storage/__init__.py:89
 msgid "Daily"
 msgstr ""
 
@@ -51,7 +51,7 @@ msgstr ""
 msgid "Modified items"
 msgstr ""
 
-#: ./storage/__init__.py:110
+#: ./storage/__init__.py:123
 msgid "Monthly"
 msgstr ""
 
@@ -59,7 +59,7 @@ msgstr ""
 msgid "New items"
 msgstr ""
 
-#: ./browser/view.py:50
+#: ./browser/view.py:56
 msgid "Please select daily or weekly digest."
 msgstr ""
 
@@ -67,19 +67,23 @@ msgstr ""
 msgid "Removed items"
 msgstr ""
 
-#: ./browser/templates/container-digest-subscribe.pt:37
+#: ./browser/templates/container-digest-subscribe.pt:45
 msgid "Subscribe"
 msgstr ""
 
-#: ./browser/templates/container-digest-subscribe.pt:34
+#: ./browser/templates/container-digest-subscribe.pt:42
 msgid "Validate"
 msgstr ""
 
-#: ./storage/__init__.py:92
+#: ./browser/templates/container-digest-subscribe.pt:39
+msgid "Watch also all sub-folders"
+msgstr ""
+
+#: ./storage/__init__.py:105
 msgid "Weekly"
 msgstr ""
 
-#: ./browser/view.py:53
+#: ./browser/view.py:59
 msgid "You cancelled your subscription to digest email about activity on this folder"
 msgstr ""
 
@@ -93,8 +97,8 @@ msgstr ""
 msgid "digestemail-byfolders"
 msgstr ""
 
-#. Default: "Subscribe to weekly or daily digest of activity in this folder"
-#: ./browser/viewlet.py:24
+#. Default: "Subscribe to recurring digest of activity in this folder"
+#: ./browser/viewlet.py:25
 msgid "folder_digesticon_title"
 msgstr ""
 
@@ -103,13 +107,23 @@ msgstr ""
 msgid "moved_from"
 msgstr ""
 
+#. Default: "You are subscribed to this folder from a parent folder"
+#: ./browser/templates/container-digest-subscribe.pt:18
+msgid "msg_parent_subscribed"
+msgstr ""
+
 #. Default: "You subscribed to ${delay} digest email about activity on this folder"
-#: ./browser/view.py:56
+#: ./browser/view.py:62
 msgid "msg_subscribed_digest"
 msgstr ""
 
 #. Default: "You have subscribed to ${delay} digest on this folder"
-#: ./browser/viewlet.py:29
+#: ./browser/viewlet.py:35
 msgid "title_digesticon"
+msgstr ""
+
+#. Default: "You have subscribed to ${delay} digest on this folder and all its subfolders"
+#: ./browser/viewlet.py:31
+msgid "title_digesticon_recursives"
 msgstr ""
 

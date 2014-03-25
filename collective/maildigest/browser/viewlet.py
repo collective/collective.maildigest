@@ -22,12 +22,8 @@ class DigestIcon(ViewletBase):
         storage, recursive = utility.get_subscription(user_id, self.context)
         if not storage:
             self.icon = 'maildigest.png'
-            if recursive:
-                self.title = _('folder_digesticon_title_recursive',
-                               default=u"Subscribe to recurring digest of activity in this folder and all its subfolders")
-            else:
-                self.title = _('folder_digesticon_title',
-                               default=u"Subscribe to recurring digest of activity in this folder")
+            self.title = _('folder_digesticon_title',
+                           default=u"Subscribe to recurring digest of activity in this folder")
 
         else:
             self.icon = storage.icon
