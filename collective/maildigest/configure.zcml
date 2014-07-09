@@ -7,6 +7,7 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="collective.maildigest">
 
+  <include package="Products.CMFCore" file="permissions.zcml" />
   <include file="minimal.zcml" />
 
   <include package=".storage" file="daily.zcml" />
@@ -15,6 +16,7 @@
 
   <include package=".activity" file="add.zcml" />
   <include package=".activity" file="modify.zcml" />
+  <include package=".activity" file="move.zcml" />
   <include package=".activity" file="delete.zcml" />
 
   <include package=".digestrules" file="addedandremoved.zcml" />
@@ -23,7 +25,10 @@
   <include package=".digestrules" file="sameeditor.zcml" />
   <include package=".digestrules" file="unauthorized.zcml" />
 
-  <include package=".action" file="log.zcml" />
+  <!-- for debugging only ! -->
+  <!--
+    <include package=".action" file="log.zcml" />
+  -->
   <include package=".action" file="digestemail-byfolder.zcml" />
 
   <class class="Products.ATContentTypes.content.folder.ATFolder">

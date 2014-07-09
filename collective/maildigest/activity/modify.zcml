@@ -4,7 +4,7 @@
 
     <subscriber
       for="Products.CMFCore.interfaces.IContentish
-           Products.Archetypes.interfaces.IObjectEditedEvent"
+           zope.lifecycleevent.interfaces.IObjectModifiedEvent"
       handler=".modify.store_activity"
       />
 

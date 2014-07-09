@@ -1,7 +1,6 @@
-from plone.testing import z2
-
-from plone.app.testing import *
+from plone.app.testing import PloneWithPackageLayer, IntegrationTesting, FunctionalTesting
 import collective.maildigest
+
 
 FIXTURE = PloneWithPackageLayer(zcml_filename="configure.zcml",
                                 zcml_package=collective.maildigest,
@@ -14,4 +13,3 @@ INTEGRATION = IntegrationTesting(bases=(FIXTURE,),
 
 FUNCTIONAL = FunctionalTesting(bases=(FIXTURE,),
                         name="collective.maildigest:Functional")
-

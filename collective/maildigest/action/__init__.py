@@ -1,6 +1,7 @@
 from zope.interface import implements
 
-from ..interfaces import IDigestAction
+from collective.maildigest.interfaces import IDigestAction
+
 
 class BaseAction(object):
 

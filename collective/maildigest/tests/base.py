@@ -1,31 +1,34 @@
-import transaction
 import unittest2 as unittest
-from zope import interface
+import transaction
+from zope.interface import alsoProvides
 from plone.app import testing
-from collective.maildigest import testing
+
+from collective.maildigest.testing import INTEGRATION, FUNCTIONAL
+from collective.maildigest.browser.interfaces import ILayer
+
 
 class UnitTestCase(unittest.TestCase):
 
     def setUp(self):
         pass
 
+
 class IntegrationTestCase(unittest.TestCase):
 
-    layer = layer.INTEGRATION
+    layer = INTEGRATION
 
     def setUp(self):
-        super(TestCase, self).setUp()
+        super(unittest.TestCase, self).setUp()
         self.portal = self.layer['portal']
+        alsoProvides(self.portal.REQUEST, ILayer)
         testing.setRoles(self.portal, testing.TEST_USER_ID, ['Manager'])
         self.portal.invokeFactory('Folder', 'test-folder')
-        testing.setRoles(self.portal, testing.TEST_USER_ID, ['Member'])
-        self.folder = self.portal['test-folder']
 
 
 class FunctionalTestCase(IntegrationTestCase):
 
-    layer = layer.FUNCTIONAL
+    layer = FUNCTIONAL
 
     def setUp(self):
-        #we must commit the transaction
+        # we must commit the transaction
         transaction.commit()

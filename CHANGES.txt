@@ -1,10 +1,42 @@
 Changelog
 =========
 
-0.3.4 (unreleased)
+0.9.0 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- We can select recursive subscription : user can choose to be notified
+  to the activity in the subfolders of the subscription folder.
+  [thomasdesvenain]
+
+- Added move activity notified when we cut/paste content.
+  Copied contents notifies add activity.
+  [thomasdesvenain]
+
+- Rewrite collective.maildigest api
+  so we don't deal with collective.subscribe api outside of main utility.
+  Use plone.api.
+  [thomasdesvenain]
+
+- Added ui for monthly email.
+  More generic management of delays.
+  [thomasdesvenain]
+
+- Do not break site when it is not installed.
+  Do not need to install collective.inviting.
+  [thomasdesvenain]
+
+- Plone 4.2+ and recent jQuery compatibility.
+  [thomasdesvenain]
+
+- New bootstrap and buildout.
+  [thomasdesvenain]
+
+- Added tests and coverage.
+  [thomasdesvenain]
+
+IMPORTANT: because of changes in storage, before updating to this release,
+first run www.mysite.com/@@digest-cron?maildigest-debug-mode=1,
+unless you will loose some notifications.
 
 
 0.3.3 (2014-01-28)

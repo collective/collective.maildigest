@@ -1,5 +1,10 @@
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets.common import ViewletBase
+from plone import api
+
+from collective.maildigest import DigestMessageFactory as _
+from collective.maildigest.tool import get_tool
+from zope.i18n import translate
 
 
 class DigestIcon(ViewletBase):
@@ -12,11 +17,23 @@ class DigestIcon(ViewletBase):
         if self.anonymous:
             return
 
-        context, request = self.context, self.request
-        self.digestinfo = context.unrestrictedTraverse('digestinfo')
-        self.digestinfo.update()
-        self.subscribed_daily = self.digestinfo.subscribed_daily
-        self.subscribed_weekly = self.digestinfo.subscribed_weekly
-        self.subscribed_nothing = self.digestinfo.subscribed_nothing
-        self.form_url = "%s/digest-subscribe" % self.context.absolute_url()
+        user_id = api.user.get_current().getId()
+        utility = get_tool()
+        storage, recursive = utility.get_subscription(user_id, self.context)
+        if not storage:
+            self.icon = 'maildigest.png'
+            self.title = _('folder_digesticon_title',
+                           default=u"Subscribe to recurring digest of activity in this folder")
 
+        else:
+            self.icon = storage.icon
+            if recursive:
+                self.title = _('title_digesticon_recursives',
+                               default=u"You have subscribed to ${delay} digest on this folder and all its subfolders",
+                               mapping={'delay': translate(storage.label, context=self.request).lower()})
+            else:
+                self.title = _('title_digesticon',
+                               default=u"You have subscribed to ${delay} digest on this folder",
+                               mapping={'delay': translate(storage.label, context=self.request).lower()})
+
+        self.form_url = "%s/digest-subscribe" % self.context.absolute_url()

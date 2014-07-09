@@ -6,11 +6,10 @@ from zope.component import getUtility
 from Products.MailHost.interfaces import IMailHost
 from Products.MailHost.MailHost import formataddr
 from Products.Five.browser import BrowserView
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.interfaces import IPloneSiteRoot
+from plone import api
 
-from .. import DigestMessageFactory as _
-from . import BaseAction
+from collective.maildigest import DigestMessageFactory as _
+from collective.maildigest.action import BaseAction
 
 
 class DigestEmailMessage(BrowserView):
@@ -18,8 +17,8 @@ class DigestEmailMessage(BrowserView):
     def folders(self):
         """sort digest by folders
         """
-        ctool = getToolByName(self.context, 'portal_catalog')
-        site = getToolByName(self.context, 'portal_url').getPortalObject()
+        ctool = api.portal.get_tool('portal_catalog')
+        site = api.portal.get()
         toLocTime = self.context.unrestrictedTraverse('@@plone').toLocalizedTime
 
         folders = {}
@@ -27,7 +26,7 @@ class DigestEmailMessage(BrowserView):
             for info in activity_infos:
                 folder_uid = info['folder-uid']
                 if folder_uid not in folders:
-                    if not folder_uid in folders:
+                    if folder_uid not in folders:
                         folder_uid = info['folder-uid']
                         if folder_uid == 'plonesite':
                             folders[folder_uid] = {'title': site.Title(),
@@ -38,7 +37,8 @@ class DigestEmailMessage(BrowserView):
                                 continue
 
                             folder_brain = folder_brain[0]
-                            folders[folder_uid] = {'title': folder_brain.Title,
+                            folder_title = folder_brain.Title or folder_brain.getId
+                            folders[folder_uid] = {'title': folder_title,
                                                    'url': folder_brain.getURL()}
 
                 doc_brain = ctool.unrestrictedSearchResults(UID=info['uid'])
@@ -48,10 +48,18 @@ class DigestEmailMessage(BrowserView):
                                 'date': toLocTime(info['date'])}
                 else:
                     doc_brain = doc_brain[0]
-                    doc_info = {'title': doc_brain.Title or doc_brain.getId,
+                    doc_title = doc_brain.Title or doc_brain.getId
+                    doc_info = {'title': doc_title,
                                 'url': doc_brain.getURL(),
                                 'actor': info['actor_fullname'],
                                 'date': toLocTime(info['date'])}
+                    if info.get('old_parent', False):
+                        old_parent_uid = info['old_parent']
+                        old_parent_brain = ctool.searchResults(UID=old_parent_uid)
+                        if len(old_parent_brain) > 0:
+                            old_parent_brain = old_parent_brain[0]
+                            doc_info['from_url'] = old_parent_brain.getURL()
+                            doc_info['from_title'] = old_parent_brain.Title
 
                 folders[folder_uid].setdefault(activity, []).append(doc_info)
 

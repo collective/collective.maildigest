@@ -1,6 +1,7 @@
-from .. import logger
+from collective.maildigest import logger
 
-from . import BaseAction
+from collective.maildigest.action import BaseAction
+
 
 class Log(BaseAction):
 

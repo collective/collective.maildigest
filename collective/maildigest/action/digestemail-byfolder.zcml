@@ -4,13 +4,13 @@
     i18n_domain="collective.maildigest">
 
   <utility name="digestemail-byfolder"
-           factory=".digestemail-byfolder.DigestEmail"
+           factory=".digestemail_byfolder.DigestEmail"
            provides="..interfaces.IDigestAction" />
 
   <browser:page
     for="Products.CMFPlone.interfaces.siteroot.IPloneSiteRoot"
     name="digestemail-byfolder"
-    class=".digestemail-byfolder.DigestEmailMessage"
+    class=".digestemail_byfolder.DigestEmailMessage"
     template="templates/digestemail-byfolder.pt"
     permission="zope2.View"
     />
