@@ -104,12 +104,12 @@ class DigestUtility(object):
             @param folder: object
             @param storage_id: str
         """
-        subscriber = ItemSubscriber(user=user_id)
+        subscriber = ItemSubscriber(user=user_id)  # @TODO: manage other types
         catalog = self._get_catalog()
         uid = self._get_uid(folder)
         for name, storage in self.get_storages():
             # unindex all user subscriptions on the folder (recursive and not)
-            # not priced robustness...
+            # priceless robustness...
             catalog.unindex(subscriber, uid, self._get_key(name, False))
             catalog.unindex(subscriber, uid, self._get_key(name, True))
 
@@ -117,7 +117,8 @@ class DigestUtility(object):
             if name == storage_id:
                 catalog.index(subscriber, uid, self._get_key(name, recursive))
             else:
-                storage.purge_user(subscriber)
+                # remove activities stored for this subscriber
+                storage.purge_user((subscriber.namespace, subscriber.user))
 
     def get_subscription(self, user_id, folder, root=False):
         """Get the id of the storage selected by the subscriber on the folder
@@ -140,7 +141,7 @@ class DigestUtility(object):
                 step_uid = self._get_uid(step)
                 if step_uid and catalog.search({rec_storage_id: step_uid}):
                     return storage, True
-                if root: # check only folder itself
+                if root:  # check only folder itself
                     break
 
         return None, None
@@ -168,6 +169,7 @@ class DigestUtility(object):
                                 catalog.search({rec_storage_key: parent_uid}))
 
         return tuple(subscribers)
+
 
 def get_tool():
     return getUtility(IDigestUtility)

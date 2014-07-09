@@ -26,7 +26,7 @@ class DigestEmailMessage(BrowserView):
             for info in activity_infos:
                 folder_uid = info['folder-uid']
                 if folder_uid not in folders:
-                    if not folder_uid in folders:
+                    if folder_uid not in folders:
                         folder_uid = info['folder-uid']
                         if folder_uid == 'plonesite':
                             folders[folder_uid] = {'title': site.Title(),
@@ -37,7 +37,8 @@ class DigestEmailMessage(BrowserView):
                                 continue
 
                             folder_brain = folder_brain[0]
-                            folders[folder_uid] = {'title': folder_brain.Title,
+                            folder_title = folder_brain.Title or folder_brain.getId
+                            folders[folder_uid] = {'title': folder_title,
                                                    'url': folder_brain.getURL()}
 
                 doc_brain = ctool.unrestrictedSearchResults(UID=info['uid'])
@@ -47,7 +48,8 @@ class DigestEmailMessage(BrowserView):
                                 'date': toLocTime(info['date'])}
                 else:
                     doc_brain = doc_brain[0]
-                    doc_info = {'title': doc_brain.Title or doc_brain.getId,
+                    doc_title = doc_brain.Title or doc_brain.getId
+                    doc_info = {'title': doc_title,
                                 'url': doc_brain.getURL(),
                                 'actor': info['actor_fullname'],
                                 'date': toLocTime(info['date'])}

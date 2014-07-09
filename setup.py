@@ -32,7 +32,8 @@ setup(name='collective.maildigest',
           'plone.api',
       ],
       extras_require = dict(
-          test=['plone.app.testing'],
+          test=['plone.app.testing',
+                'beautifulsoup4'],
       ),
       entry_points="""
       # -*- Entry points: -*-

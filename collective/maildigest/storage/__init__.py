@@ -23,7 +23,7 @@ class BaseStorage(object):
 
     key = NotImplemented
     label = NotImplemented
-    icon =  'maildigest-weekly.png'
+    icon = 'maildigest-weekly.png'
 
     def __init__(self, context):
         self.annotations = IAnnotations(context)
@@ -36,16 +36,16 @@ class BaseStorage(object):
 
     def store_activity(self, subscriber, activity_key, info):
         """Store an activity for a subscriber
-        @param subscriber: str - user id
+        @param subscriber: (str - namespace, str - user id)
         @param activity_key: str - id of type of activity ('add', 'delete', etc)
         @param info: dict - information about activity
         """
         value = PersistentDict(**info)
         key = self._get_key()
-        if not key in self.annotations:
+        if key not in self.annotations:
             self.annotations[key] = OOBTree()
 
-        if not subscriber in self.annotations[key]:
+        if subscriber not in self.annotations[key]:
             self.annotations[key][subscriber] = PersistentDict()
 
         if activity_key not in self.annotations[key][subscriber]:
@@ -53,12 +53,17 @@ class BaseStorage(object):
 
         self.annotations[key][subscriber][activity_key].append(value)
 
+    def _set_lastpurge(self, date):
+        key = self._get_key()
+        self.annotations[key + '.lastpurge'] = date
+
     def pop(self):
         """Get all activities and purge them
         """
         key = self._get_key()
-        self.annotations[key + '.lastpurge'] = DateTime()
-        if not key in self.annotations:
+        self._set_lastpurge(DateTime())
+
+        if key not in self.annotations:
             return {}
 
         activity = deepcopy(self.annotations[key])
@@ -69,31 +74,32 @@ class BaseStorage(object):
         """Get date of last purge
         """
         key = self._get_key()
-        if not self.annotations.has_key(key + '.lastpurge'):
+        if key + '.lastpurge' not in self.annotations:
             return None
         else:
-            return self.annotations[key]
+            return self.annotations[key + '.lastpurge']
 
-    def purge_user(self, user_id):
+    def purge_user(self, subscriber):
         """Remove activities subscribed for this user
+        @param subscriber: (str - namespace, str - user id)
         """
         key = self._get_key()
         if key in self.annotations:
-            if user_id in self.annotations[key]:
-                del self.annotations[key][user_id]
+            if subscriber in self.annotations[key]:
+                del self.annotations[key][subscriber]
 
 
 class DailyStorage(BaseStorage):
 
     key = 'daily'
     label = _("Daily")
-    icon =  'maildigest-daily.png'
+    icon = 'maildigest-daily.png'
     frequency = 24
 
     def purge_now(self):
         last_purge = self.last_purge()
         now = DateTime()
-        if (not last_purge) or now - last_purge > 1 or now.day != last_purge.day:
+        if (not last_purge) or now - last_purge > 1 or now.day() != last_purge.day():
             return True
         else:
             return False
@@ -103,7 +109,7 @@ class WeeklyStorage(BaseStorage):
 
     key = 'weekly'
     label = _("Weekly")
-    frequency = 24*7
+    frequency = 24 * 7
 
     def purge_now(self):
         now = DateTime()
@@ -121,12 +127,12 @@ class MonthlyStorage(BaseStorage):
 
     key = 'monthly'
     label = _("Monthly")
-    frequency = 24*31
+    frequency = 24 * 31
 
     def purge_now(self):
         last_purge = self.last_purge()
         now = DateTime()
-        if (not last_purge) or now - last_purge > 30 or now.month != last_purge.month:
+        if (not last_purge) or now - last_purge > 30 or now.month() != last_purge.month():
             return True
         else:
             return False

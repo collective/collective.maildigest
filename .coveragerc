@@ -1,0 +1,6 @@
+[report]
+include =
+    collective/maildigest/*
+omit =
+    */test*
+    */upgrades/*

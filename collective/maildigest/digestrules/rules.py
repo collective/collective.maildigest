@@ -1,4 +1,4 @@
-from copy import deepcopy
+from copy import deepcopy, copy
 
 from Products.CMFCore.utils import getToolByName
 
@@ -14,18 +14,16 @@ class SameEditor(BaseRule):
     """
 
     def filter(self, portal, subscriber, info):
-        if not 'modify' in info:
+        if 'modify' not in info:
             return info
 
-        info = deepcopy(info)
-        modified_infos = deepcopy(info['modify'])
-        modified_infos.sort(key=lambda x: x['date'], reverse=True)
-        uid_actors = []
-        for modified_info in modified_infos:
-            if (modified_info['uid'], modified_info['actor']) in uid_actors:
+        uid_actors = set()
+        for modified_info in copy(info['modify']):
+            uid = (modified_info['uid'], modified_info['actor'])
+            if uid in uid_actors:
                 info['modify'].remove(modified_info)
-
-            uid_actors.append((modified_info['uid'], modified_info['actor']))
+            else:
+                uid_actors.add(uid)
 
         return info
 
@@ -42,13 +40,27 @@ class Unauthorized(BaseRule):
         ctool = getToolByName(portal, 'portal_catalog')
         usertype, userid = subscriber
         if usertype == 'email':
-            allowed = ['Anonymous']
+            arau = ['Anonymous']
         elif usertype == 'member':
             user = pas.getUserById(userid) or mtool.getMemberById(userid)
             if user is None:
                 return infos
 
-            allowed = ctool._listAllowedRolesAndUsers(user)
+            arau = ctool._listAllowedRolesAndUsers(user)
+
+        activity_uids = set()
+        for activity, activity_infos in infos.items():
+            if activity == 'delete':
+                continue
+
+            for info in activity_infos:
+                activity_uids.add(info['folder-uid'])
+                activity_uids.add(info['uid'])
+
+        allowed_brains = ctool.unrestrictedSearchResults(
+                                        UID=list(activity_uids),
+                                        allowedRolesAndUsers=arau)
+        allowed_uids = [b.UID for b in allowed_brains]
 
         filtered = {}
         for activity, activity_infos in infos.items():
@@ -57,10 +69,7 @@ class Unauthorized(BaseRule):
                 continue
 
             for info in activity_infos:
-                brains = ctool.unrestrictedSearchResults(
-                                        UID=(info['folder-uid'], info['uid']),
-                                        allowedRolesAndUsers=allowed)
-                if len(brains) == 2:
+                if info['folder-uid'] in allowed_uids and info['uid'] in allowed_uids:
                     filtered.setdefault(activity, []).append(info)
 
         return filtered
@@ -72,9 +81,7 @@ class AddedAndRemoved(BaseRule):
     """
 
     def filter(self, portal, subscriber, infos):
-        if not 'delete' in infos:
-            return infos
-        elif not 'add' in infos:
+        if 'add' not in infos or 'delete' not in infos:
             return infos
 
         added = set()
@@ -96,35 +103,34 @@ class AddedAndRemoved(BaseRule):
 
         return filtered
 
+
 class ModifiedAndRemoved(BaseRule):
     """If a document has been removed, do not display modify activity
     """
 
     def filter(self, portal, subscriber, infos):
-        if not 'modify' in infos:
-            return infos
-        elif not 'delete' in infos:
+        if 'modify' not in infos or 'delete' not in infos:
             return infos
 
         modified = set()
         removed = set()
 
-        for activity, activity_infos in infos.items():
-            for info in activity_infos:
-                if activity == 'modify':
-                    modified.add(info['uid'])
-                elif activity == 'remove':
-                    removed.add(info['uid'])
+        for info in infos['modify']:
+            modified.add(info['uid'])
+
+        for info in infos['delete']:
+            removed.add(info['uid'])
 
         modified_and_removed = modified.intersection(removed)
 
         filtered = {}
-        for activity, activity_infos in infos.items():
-            for info in activity_infos:
-                if activity == 'modify' and info['uid'] in modified_and_removed:
-                    pass
-                else:
-                    filtered.setdefault(activity, []).append(deepcopy(info))
+        for info in copy(infos['modify']):
+            if info['uid'] in modified_and_removed:
+                infos['modify'].remove(info)
+
+        for info in copy(infos['delete']):
+            if info['uid'] in modified_and_removed:
+                infos['delete'].remove(info)
 
         return filtered
 
@@ -135,14 +141,13 @@ class AddedAndModifiedBySame(BaseRule):
     """
 
     def filter(self, portal, subscriber, infos):
-        if not 'modify' in infos:
+        if 'modify' not in infos:
             return infos
-        elif not 'add' in infos:
+        elif 'add' not in infos:
             return infos
 
         added_uid_actors = set()
         modified_uid_actors = set()
-
 
         for activity, activity_infos in infos.items():
             for info in activity_infos:

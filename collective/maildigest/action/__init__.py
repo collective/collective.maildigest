@@ -2,6 +2,7 @@ from zope.interface import implements
 
 from collective.maildigest.interfaces import IDigestAction
 
+
 class BaseAction(object):
 
     implements(IDigestAction)

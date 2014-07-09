@@ -10,3 +10,6 @@ var/
 .installed.cfg
 .mr.developer.cfg
 src/
+htmlcov/
+.coverage
+buildout-cache

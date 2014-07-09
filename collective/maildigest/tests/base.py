@@ -12,6 +12,7 @@ class UnitTestCase(unittest.TestCase):
     def setUp(self):
         pass
 
+
 class IntegrationTestCase(unittest.TestCase):
 
     layer = INTEGRATION
@@ -29,5 +30,5 @@ class FunctionalTestCase(IntegrationTestCase):
     layer = FUNCTIONAL
 
     def setUp(self):
-        #we must commit the transaction
+        # we must commit the transaction
         transaction.commit()

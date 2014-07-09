@@ -41,6 +41,7 @@ class DigestInfo(BrowserView):
             if parent_subscribed_storage:
                 self.parent_subscribed = True
 
+
 class DigestSubscribe(BrowserView):
 
     def __call__(self):
@@ -63,7 +64,6 @@ class DigestSubscribe(BrowserView):
                         default="You subscribed to ${delay} digest email about activity on this folder",
                         mapping={'delay': translate(storage.label,
                                                     context=self.request).lower()})
-
 
         statusmessage.addStatusMessage(message, msg_type)
         return self.context.absolute_url()

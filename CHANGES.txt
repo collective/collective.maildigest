@@ -31,7 +31,7 @@ Changelog
 - New bootstrap and buildout.
   [thomasdesvenain]
 
-- Added tests.
+- Added tests and coverage.
   [thomasdesvenain]
 
 IMPORTANT: because of changes in storage, before updating to this release,

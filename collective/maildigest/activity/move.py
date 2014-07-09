@@ -4,6 +4,7 @@ from plone.uuid.interfaces import IUUID, IUUIDAware
 from collective.maildigest.browser.interfaces import ILayer
 from collective.maildigest.tool import get_tool
 
+
 def store_activity(document, event):
     if not event.oldParent:
         # this is not a move, this is an adding
