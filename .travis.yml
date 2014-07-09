@@ -7,7 +7,7 @@ install:
 - bin/buildout -c travis.cfg -N -q -t 3
 script:
 - bin/test
-- ./bin/createcoverage run ./bin/test -t \!robot
+- ./bin/createcoverage
 after_success:
 - pip install coveralls
 - coveralls
