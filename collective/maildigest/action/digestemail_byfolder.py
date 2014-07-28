@@ -22,7 +22,7 @@ class DigestEmailMessage(BrowserView):
         toLocTime = self.context.unrestrictedTraverse('@@plone').toLocalizedTime
 
         folders = {}
-        for activity, activity_infos in self.info.items():
+        for activity, activity_infos in self.info.iteritems():
             for info in activity_infos:
                 folder_uid = info['folder-uid']
                 if folder_uid not in folders:
