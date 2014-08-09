@@ -8,10 +8,4 @@
       handler=".move.store_activity"
       />
 
-    <subscriber
-      for="Products.CMFCore.interfaces.IContentish
-           zope.lifecycleevent.interfaces.IObjectCopiedEvent"
-      handler=".move.store_activity"
-      />
-
 </configure>
