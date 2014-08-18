@@ -31,6 +31,20 @@ class BaseStorage(object):
     def _get_key(self):
         return '%s.%s' % (STORAGE_KEY_PREFIX, self.key)
 
+    def _get_activities(self):
+        key = self._get_key()
+        if key not in self.annotations:
+            self.annotations[key] = OOBTree()
+
+        return self.annotations[key]
+
+    def _set_activities(self, infos):
+        key = self._get_key()
+        if key not in self.annotations:
+            self.annotations[key] = OOBTree()
+
+        self.annotations[key] = infos
+
     def purge_now(self):
         raise NotImplementedError
 
@@ -42,16 +56,15 @@ class BaseStorage(object):
         """
         value = PersistentDict(**info)
         key = self._get_key()
-        if key not in self.annotations:
-            self.annotations[key] = OOBTree()
 
+        activities = self._get_activities()
         if subscriber not in self.annotations[key]:
-            self.annotations[key][subscriber] = PersistentDict()
+            activities[subscriber] = PersistentDict()
 
         if activity_key not in self.annotations[key][subscriber]:
-            self.annotations[key][subscriber][activity_key] = PersistentList()
+            activities[subscriber][activity_key] = PersistentList()
 
-        self.annotations[key][subscriber][activity_key].append(value)
+        activities[subscriber][activity_key].append(value)
 
     def _set_lastpurge(self, date):
         key = self._get_key()
@@ -60,14 +73,9 @@ class BaseStorage(object):
     def pop(self):
         """Get all activities and purge them
         """
-        key = self._get_key()
         self._set_lastpurge(DateTime())
-
-        if key not in self.annotations:
-            return {}
-
-        activity = deepcopy(self.annotations[key])
-        self.annotations[key] = PersistentDict()
+        activity = deepcopy(self._get_activities())
+        self._set_activities(OOBTree())
         return activity
 
     def last_purge(self):
@@ -83,10 +91,8 @@ class BaseStorage(object):
         """Remove activities subscribed for this user
         @param subscriber: (str - namespace, str - user id)
         """
-        key = self._get_key()
-        if key in self.annotations:
-            if subscriber in self.annotations[key]:
-                del self.annotations[key][subscriber]
+        if subscriber in self._get_activities():
+            del self._get_activities()[subscriber]
 
 
 class DailyStorage(BaseStorage):
