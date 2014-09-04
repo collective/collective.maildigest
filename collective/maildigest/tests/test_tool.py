@@ -22,6 +22,7 @@ class TestTool(base.IntegrationTestCase):
         self.workspace = api.content.create(self.portal, 'Folder', 'Workspace')
         self.folder = api.content.create(self.workspace, 'Folder', 'folder')
         self.subscriber = ('member', TEST_USER_NAME)
+        self.portal.portal_workflow._default_chain = ('plone_workflow',)
 
     def test_subscriptions(self):
         tool = get_tool()
@@ -110,6 +111,10 @@ class TestTool(base.IntegrationTestCase):
         activity_info = dict(storage.pop())
         self.assertEqual(activity_info[self.subscriber].keys(), ['move'])
 
+        api.content.transition(self.workspace.document, 'publish')
+        activity_info = dict(storage.pop())
+        self.assertEqual(activity_info[self.subscriber].keys(), ['publish'])
+
         self.workspace.manage_delObjects(['document'])
         activity_info = dict(storage.pop())
         self.assertEqual(activity_info[self.subscriber].keys(), ['delete'])
@@ -117,7 +122,7 @@ class TestTool(base.IntegrationTestCase):
     def test_rules(self):
         from collective.maildigest.digestrules.rules import SameEditor,\
             AddedAndModifiedBySame, AddedAndRemoved, ModifiedAndRemoved,\
-            Unauthorized
+            Unauthorized, AddedAndPublished
         tool = get_tool()
         subscriber = self.subscriber
         tool.switch_subscription(TEST_USER_NAME, self.workspace, 'daily', True)
@@ -158,14 +163,30 @@ class TestTool(base.IntegrationTestCase):
 
         # added and removed
         api.content.create(self.folder, 'Document', 'document2')
+        api.content.create(self.folder, 'Document', 'document2b')
         api.content.create(self.folder, 'Document', 'document3')
+        api.content.transition(self.folder.document2b, 'publish')
         api.content.delete(self.folder.document2)
+        api.content.delete(self.folder.document2b)
         storage = tool.get_storage('daily')
         activity_info = dict(storage.pop())[subscriber]
-        self.assertEqual(len(activity_info['add']), 2)
+        self.assertEqual(len(activity_info['add']), 3)
+        self.assertEqual(len(activity_info['publish']), 1)
         activity_info = AddedAndRemoved()(self.portal, subscriber, activity_info)
         self.assertEqual(len(activity_info['add']), 1)
+        self.assertNotIn('publish', activity_info)
         self.assertNotIn('delete', activity_info)
+
+        # added and published
+        api.content.create(self.folder, 'Document', 'document4')
+        api.content.create(self.folder, 'Document', 'document5')
+        api.content.transition(self.folder.document4, 'publish')
+        api.content.transition(self.folder.document3, 'publish')
+        storage = tool.get_storage('daily')
+        activity_info = dict(storage.pop())[subscriber]
+        activity_info = AddedAndPublished()(self.portal, subscriber, activity_info)
+        self.assertEqual(len(activity_info['add']), 1) # document 5
+        self.assertEqual(len(activity_info['publish']), 2) # document 4 and 3
 
     def test_purge_user(self):
         tool = get_tool()

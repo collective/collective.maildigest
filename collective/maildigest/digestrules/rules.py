@@ -76,19 +76,20 @@ class Unauthorized(BaseRule):
 
 
 class AddedAndRemoved(BaseRule):
-    """If a document has been added and removed during the same session
+    """If a document has been added/published and removed during the same session
     do not display any activity on it
     """
 
     def filter(self, portal, subscriber, infos):
-        if 'add' not in infos or 'delete' not in infos:
+        if ('add' not in infos and 'publish' not in infos) \
+         or 'delete' not in infos:
             return infos
 
         added = set()
         removed = set()
         for activity, activity_infos in infos.items():
             for info in activity_infos:
-                if activity == 'add':
+                if activity in ('add', 'publish'):
                     added.add(info['uid'])
                 elif activity == 'delete':
                     removed.add(info['uid'])
@@ -99,9 +100,34 @@ class AddedAndRemoved(BaseRule):
         for activity, activity_infos in infos.items():
             for info in activity_infos:
                 if info['uid'] not in added_and_removed:
-                    filtered.setdefault(activity, []).append(deepcopy(info))
+                    filtered.setdefault(activity, []).append(info)
 
         return filtered
+
+
+class AddedAndPublished(BaseRule):
+    """If a document has been added and published,
+    display only publication
+    """
+
+    def filter(self, portal, subscriber, infos):
+        infos = deepcopy(infos)
+        if 'add' not in infos or 'publish' not in infos:
+            return infos
+
+        published = set([info['uid'] for info in infos['add']])
+        added = set([info['uid'] for info in infos['add']])
+
+        added_and_published = published.intersection(added)
+
+        for info in copy(infos['add']):
+            if info['uid'] in added_and_published:
+                infos['add'].remove(info)
+
+        if len(infos['add']) == 0:
+            del infos['add']
+
+        return infos
 
 
 class ModifiedAndRemoved(BaseRule):
@@ -109,21 +135,15 @@ class ModifiedAndRemoved(BaseRule):
     """
 
     def filter(self, portal, subscriber, infos):
+        infos = deepcopy(infos)
         if 'modify' not in infos or 'delete' not in infos:
             return infos
 
-        modified = set()
-        removed = set()
-
-        for info in infos['modify']:
-            modified.add(info['uid'])
-
-        for info in infos['delete']:
-            removed.add(info['uid'])
+        modified = set([info['uid'] for info in infos['modify']])
+        removed = set([info['uid'] for info in infos['delete']])
 
         modified_and_removed = modified.intersection(removed)
 
-        filtered = {}
         for info in copy(infos['modify']):
             if info['uid'] in modified_and_removed:
                 infos['modify'].remove(info)
@@ -132,7 +152,12 @@ class ModifiedAndRemoved(BaseRule):
             if info['uid'] in modified_and_removed:
                 infos['delete'].remove(info)
 
-        return filtered
+        if len(infos['modify']) == 0:
+            del infos['modify']
+        if len(infos['delete']) == 0:
+            del infos['delete']
+
+        return infos
 
 
 class AddedAndModifiedBySame(BaseRule):

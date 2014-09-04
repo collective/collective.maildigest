@@ -4,37 +4,38 @@ Changelog
 0.9.0 (unreleased)
 ------------------
 
-- We can select recursive subscription : user can choose to be notified
+- Feature: We can select recursive subscription : user can choose to be notified
   to the activity in the subfolders of the subscription folder.
   [thomasdesvenain]
 
-- Added move activity notified when we cut/paste content.
+- Feature: Added 'move' activity notified when we cut/paste content
+  and 'publish' activity when we publish content.
   Copied contents notifies add activity.
   [thomasdesvenain]
 
-- Rewrite collective.maildigest api
-  so we don't deal with collective.subscribe api outside of main utility.
-  Use plone.api.
-  [thomasdesvenain]
-
-- Added ui for monthly email.
+- UI: Added ui for monthly email.
   More generic management of delays.
-  [thomasdesvenain]
-
-- Do not break site when it is not installed.
-  Do not need to install collective.inviting.
   [thomasdesvenain]
 
 - Plone 4.2+ and recent jQuery compatibility.
   [thomasdesvenain]
 
-- New bootstrap and buildout.
+- API: Rewrite collective.maildigest api
+  so we don't deal with collective.subscribe api outside of main utility.
+  Use plone.api.
   [thomasdesvenain]
 
-- Fixed: move activity is not handled when we delete a content.
+- Fix: Do not break site when it is not installed.
+  Do not need to install collective.inviting.
   [thomasdesvenain]
 
-- Added tests and coverage.
+- Fix: move activity is not handled when we delete a content.
+  [thomasdesvenain]
+
+- Quality: New bootstrap and buildout.
+  [thomasdesvenain]
+
+- Quality: Added tests and coverage.
   [thomasdesvenain]
 
 IMPORTANT: because of changes in storage, before updating to this release,

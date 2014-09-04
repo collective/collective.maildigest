@@ -1,0 +1,11 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    i18n_domain="collective.maildigest">
+
+    <subscriber
+      for="Products.CMFCore.interfaces.IContentish
+           Products.CMFCore.interfaces.IActionSucceededEvent"
+      handler=".publish.store_activity"
+      />
+
+</configure>

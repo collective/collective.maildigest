@@ -11,6 +11,19 @@
     <h2>
       <a tal:content="folder/title" tal:attributes="href folder/url"></a>
     </h2>
+    <tal:published condition="folder/publish|nothing">
+    <h3 i18n:translate="">Published items
+    </h3>
+    <ul>
+     <li tal:repeat="doc folder/publish">
+      <a tal:attributes="href doc/url" tal:content="doc/title"></a>
+      <tal:content i18n:translate="actor_and_date">
+      (by <tal:actor i18n:name="actor" tal:content="doc/actor"></tal:actor>,
+       the <tal:date i18n:name="date" tal:content="doc/date" />)
+      </tal:content>
+     </li>
+    </ul>
+    </tal:published>
     <tal:added condition="folder/add|nothing">
     <h3 i18n:translate="">New items
     </h3>

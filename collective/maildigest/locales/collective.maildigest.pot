@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2014-03-25 18:16+0000\n"
+"POT-Creation-Date: 2014-09-04 16:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,11 +21,11 @@ msgstr ""
 msgid "${delay} email"
 msgstr ""
 
-#: ./action/digestemail_byfolder.py:87
+#: ./action/digestemail_byfolder.py:89
 msgid "${storage} activity digest"
 msgstr ""
 
-#: ./storage/__init__.py:138
+#: ./storage/__init__.py:150
 msgid "Automatic"
 msgstr ""
 
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Change my subscription on this folder"
 msgstr ""
 
-#: ./storage/__init__.py:89
+#: ./storage/__init__.py:101
 msgid "Daily"
 msgstr ""
 
@@ -45,27 +45,31 @@ msgstr ""
 msgid "Follow activity on this folder"
 msgstr ""
 
-#: ./action/templates/digestemail-byfolder.pt:40
+#: ./action/templates/digestemail-byfolder.pt:53
 msgid "Items moved into the folder"
 msgstr ""
 
-#: ./action/templates/digestemail-byfolder.pt:28
+#: ./action/templates/digestemail-byfolder.pt:41
 msgid "Modified items"
 msgstr ""
 
-#: ./storage/__init__.py:123
+#: ./storage/__init__.py:135
 msgid "Monthly"
 msgstr ""
 
-#: ./action/templates/digestemail-byfolder.pt:15
+#: ./action/templates/digestemail-byfolder.pt:28
 msgid "New items"
 msgstr ""
 
-#: ./browser/view.py:56
+#: ./browser/view.py:57
 msgid "Please select daily or weekly digest."
 msgstr ""
 
-#: ./action/templates/digestemail-byfolder.pt:56
+#: ./action/templates/digestemail-byfolder.pt:15
+msgid "Published items"
+msgstr ""
+
+#: ./action/templates/digestemail-byfolder.pt:69
 msgid "Removed items"
 msgstr ""
 
@@ -81,11 +85,11 @@ msgstr ""
 msgid "Watch also all sub-folders"
 msgstr ""
 
-#: ./storage/__init__.py:105
+#: ./storage/__init__.py:117
 msgid "Weekly"
 msgstr ""
 
-#: ./browser/view.py:59
+#: ./browser/view.py:60
 msgid "You cancelled your subscription to digest email about activity on this folder"
 msgstr ""
 
@@ -105,7 +109,7 @@ msgid "folder_digesticon_title"
 msgstr ""
 
 #. Default: "from ${oldparent}"
-#: ./action/templates/digestemail-byfolder.pt:45
+#: ./action/templates/digestemail-byfolder.pt:58
 msgid "moved_from"
 msgstr ""
 
@@ -115,7 +119,7 @@ msgid "msg_parent_subscribed"
 msgstr ""
 
 #. Default: "You subscribed to ${delay} digest email about activity on this folder"
-#: ./browser/view.py:62
+#: ./browser/view.py:63
 msgid "msg_subscribed_digest"
 msgstr ""
 
