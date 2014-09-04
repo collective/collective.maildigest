@@ -110,6 +110,10 @@ class TestTool(base.IntegrationTestCase):
         activity_info = dict(storage.pop())
         self.assertEqual(activity_info[self.subscriber].keys(), ['move'])
 
+        self.workspace.manage_delObjects(['document'])
+        activity_info = dict(storage.pop())
+        self.assertEqual(activity_info[self.subscriber].keys(), ['delete'])
+
     def test_rules(self):
         from collective.maildigest.digestrules.rules import SameEditor,\
             AddedAndModifiedBySame, AddedAndRemoved, ModifiedAndRemoved,\

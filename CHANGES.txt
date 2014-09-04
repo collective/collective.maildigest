@@ -31,6 +31,9 @@ Changelog
 - New bootstrap and buildout.
   [thomasdesvenain]
 
+- Fixed: move activity is not handled when we delete a content.
+  [thomasdesvenain]
+
 - Added tests and coverage.
   [thomasdesvenain]
 

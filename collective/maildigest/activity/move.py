@@ -9,6 +9,9 @@ def store_activity(document, event):
     if not event.oldParent:
         # this is not a move, this is an adding
         return
+    if not event.newParent:
+        # this is not a move, this is an adding
+        return
 
     if not ILayer.providedBy(getattr(document, 'REQUEST', None)):
         return
