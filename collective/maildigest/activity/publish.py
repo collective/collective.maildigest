@@ -10,11 +10,9 @@ PUBLISHED_STATES = ['published']  # patch this if necessary
 def store_activity(document, event):
     if not ILayer.providedBy(getattr(document, 'REQUEST', None)):
         return
-
-    if not IUUIDAware.providedBy(document):
+    elif not IUUIDAware.providedBy(document):
         return
-
-    if api.content.get_state(document) not in PUBLISHED_STATES:
+    elif api.content.get_state(document) not in PUBLISHED_STATES:
         return
 
     folder = aq_parent(document)

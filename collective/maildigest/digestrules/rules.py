@@ -1,5 +1,3 @@
-from copy import deepcopy, copy
-
 from Products.CMFCore.utils import getToolByName
 
 
@@ -18,13 +16,14 @@ class SameEditor(BaseRule):
             return info
 
         uid_actors = set()
-        for modified_info in copy(info['modify']):
+        new_modified = []
+        for modified_info in info['modify']:
             uid = (modified_info['uid'], modified_info['actor'])
-            if uid in uid_actors:
-                info['modify'].remove(modified_info)
-            else:
+            if uid not in uid_actors:
                 uid_actors.add(uid)
+                new_modified.append(modified_info)
 
+        info['modify'] = new_modified
         return info
 
 
@@ -111,21 +110,19 @@ class AddedAndPublished(BaseRule):
     """
 
     def filter(self, portal, subscriber, infos):
-        infos = deepcopy(infos)
         if 'add' not in infos or 'publish' not in infos:
             return infos
 
-        published = set([info['uid'] for info in infos['add']])
-        added = set([info['uid'] for info in infos['add']])
+        published = set([info['uid'] for info in infos['publish']])
+        new_add = []
+        for info in infos['add']:
+            if info['uid'] not in published:
+                new_add.append(info)
 
-        added_and_published = published.intersection(added)
-
-        for info in copy(infos['add']):
-            if info['uid'] in added_and_published:
-                infos['add'].remove(info)
-
-        if len(infos['add']) == 0:
+        if len(new_add) == 0:
             del infos['add']
+        else:
+            infos['add'] = new_add
 
         return infos
 
@@ -135,27 +132,30 @@ class ModifiedAndRemoved(BaseRule):
     """
 
     def filter(self, portal, subscriber, infos):
-        infos = deepcopy(infos)
         if 'modify' not in infos or 'delete' not in infos:
             return infos
 
-        modified = set([info['uid'] for info in infos['modify']])
+        new_modify = []
         removed = set([info['uid'] for info in infos['delete']])
+        for info in infos['modify']:
+            if info['uid'] not in removed:
+                new_modify.append(info)
 
-        modified_and_removed = modified.intersection(removed)
+        new_delete = []
+        modified = set([info['uid'] for info in infos['modify']])
+        for info in infos['delete']:
+            if info['uid'] not in modified:
+                new_delete.add(info)
 
-        for info in copy(infos['modify']):
-            if info['uid'] in modified_and_removed:
-                infos['modify'].remove(info)
-
-        for info in copy(infos['delete']):
-            if info['uid'] in modified_and_removed:
-                infos['delete'].remove(info)
-
-        if len(infos['modify']) == 0:
+        if len(new_modify) == 0:
             del infos['modify']
-        if len(infos['delete']) == 0:
+        else:
+            infos['modify'] = new_modify
+
+        if len(new_delete) == 0:
             del infos['delete']
+        else:
+            infos['delete'] = new_delete
 
         return infos
 
@@ -190,6 +190,6 @@ class AddedAndModifiedBySame(BaseRule):
                    and (info['uid'], info['actor']) in added_and_modified_uid_actors:
                     pass
                 else:
-                    filtered.setdefault(activity, []).append(deepcopy(info))
+                    filtered.setdefault(activity, []).append(info)
 
         return filtered

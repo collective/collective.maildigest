@@ -8,11 +8,9 @@ from collective.maildigest.tool import get_tool
 def store_activity(document, event):
     if not ILayer.providedBy(getattr(document, 'REQUEST', None)):
         return
-
-    if not IUUIDAware.providedBy(document):
+    elif not IUUIDAware.providedBy(document):
         return
-
-    if document.isTemporary():
+    elif document.isTemporary():
         return
 
     folder = aq_parent(document)
