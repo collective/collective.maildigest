@@ -145,7 +145,7 @@ class ModifiedAndRemoved(BaseRule):
         modified = set([info['uid'] for info in infos['modify']])
         for info in infos['delete']:
             if info['uid'] not in modified:
-                new_delete.add(info)
+                new_delete.append(info)
 
         if len(new_modify) == 0:
             del infos['modify']
