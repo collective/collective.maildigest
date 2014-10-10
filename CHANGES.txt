@@ -1,8 +1,8 @@
 Changelog
 =========
 
-0.9.0 (unreleased)
-------------------
+1.0 (2014-10-10)
+----------------
 
 - Feature: We can select recursive subscription: user can choose to be notified
   to the activity in the subfolders of the subscription folder.
