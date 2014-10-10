@@ -4,7 +4,7 @@ Changelog
 0.9.0 (unreleased)
 ------------------
 
-- Feature: We can select recursive subscription : user can choose to be notified
+- Feature: We can select recursive subscription: user can choose to be notified
   to the activity in the subfolders of the subscription folder.
   [thomasdesvenain]
 
@@ -40,7 +40,7 @@ Changelog
 
 IMPORTANT: because of changes in storage, before updating to this release,
 first run www.mysite.com/@@digest-cron?maildigest-debug-mode=1,
-unless you will loose some notifications.
+otherwise you will loose some notifications.
 
 
 0.3.3 (2014-01-28)
