@@ -1,0 +1,136 @@
+# --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
+# SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2014-09-04 16:34+0000\n"
+"PO-Revision-Date: 2017-01-16 11:41+0100\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: collective.maildigest\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl\n"
+"X-Generator: Poedit 1.8.11\n"
+
+#: browser/view.py:30
+msgid "${delay} email"
+msgstr "Email ${delay}"
+
+#: action/digestemail_byfolder.py:89
+msgid "${storage} activity digest"
+msgstr "Samenvatting ${storage} van de activiteit"
+
+#: storage/__init__.py:150
+msgid "Automatic"
+msgstr "Automatisch"
+
+#: browser/templates/container-digest-subscribe.pt:34
+msgid "Cancel subscription"
+msgstr "Met het abonnement stopzetten"
+
+#: browser/templates/container-digest-subscribe.pt:13
+msgid "Change my subscription on this folder"
+msgstr "Mijn abonnement aan deze map te wijzigen"
+
+#: storage/__init__.py:101
+msgid "Daily"
+msgstr "Dagelijks"
+
+#: browser/templates/container-digest-subscribe.pt:10
+msgid "Follow activity on this folder"
+msgstr "Volg de activiteit van deze map"
+
+#: action/templates/digestemail-byfolder.pt:53
+msgid "Items moved into the folder"
+msgstr "Elementen in het map verplaatst"
+
+#: action/templates/digestemail-byfolder.pt:41
+msgid "Modified items"
+msgstr "Verwerkte elementen"
+
+#: storage/__init__.py:135
+msgid "Monthly"
+msgstr "Maandelijks"
+
+#: action/templates/digestemail-byfolder.pt:28
+msgid "New items"
+msgstr "Nieuwe elementen"
+
+#: browser/view.py:57
+msgid "Please select daily or weekly digest."
+msgstr "Maak uw keuze : dagelijks of wekelijks E-mail"
+
+#: action/templates/digestemail-byfolder.pt:15
+msgid "Published items"
+msgstr "Gepubliceerde elementen"
+
+#: action/templates/digestemail-byfolder.pt:69
+msgid "Removed items"
+msgstr "Verwijderde elementen"
+
+#: browser/templates/container-digest-subscribe.pt:45
+msgid "Subscribe"
+msgstr "Inschrijven"
+
+#: browser/templates/container-digest-subscribe.pt:42
+msgid "Validate"
+msgstr "Valideren"
+
+#: browser/templates/container-digest-subscribe.pt:39
+msgid "Watch also all sub-folders"
+msgstr "Aan de submaps zich inschrijven"
+
+#: storage/__init__.py:117
+msgid "Weekly"
+msgstr "Wekelijks"
+
+#: browser/view.py:60
+msgid "You cancelled your subscription to digest email about activity on this folder"
+msgstr "U heeft uw abonnement aan het volgen van deze activiteit voor deze map"
+
+#. Default: "(by ${actor}, the ${date})"
+#: action/templates/digestemail-byfolder.pt:22
+msgid "actor_and_date"
+msgstr "(door ${actor}, op ${date})"
+
+#. Default: "Recent modifications have happen on the folders you have subscribed to"
+#: action/templates/digestemail-byfolder.pt:7
+msgid "digestemail-byfolders"
+msgstr "Hallo,<br />Wijzigingen worden gedaan aan maps aan wie u geabonneerd bent"
+
+#. Default: "Subscribe to recurring digest of activity in this folder"
+#: browser/viewlet.py:25
+msgid "folder_digesticon_title"
+msgstr "Zich inschrijven aan een regelmatige samenvatting van de activiteit op deze map"
+
+#. Default: "from ${oldparent}"
+#: action/templates/digestemail-byfolder.pt:58
+msgid "moved_from"
+msgstr "uit ${oldparent}"
+
+#. Default: "You are subscribed to this folder from a parent folder"
+#: browser/templates/container-digest-subscribe.pt:18
+msgid "msg_parent_subscribed"
+msgstr "U bent aan deze map vanaf een bovenligendde map ingeschrijven"
+
+#. Default: "You subscribed to ${delay} digest email about activity on this folder"
+#: browser/view.py:63
+msgid "msg_subscribed_digest"
+msgstr "U bent aan een Email ${delay}, dat de activiteit van deze map samenvat, ingeschreven"
+
+#. Default: "You have subscribed to ${delay} digest on this folder"
+#: browser/viewlet.py:35
+msgid "title_digesticon"
+msgstr "U bent aan een Email ${delay} op deze map ingeschreven"
+
+#. Default: "You have subscribed to ${delay} digest on this folder and all its subfolders"
+#: browser/viewlet.py:31
+msgid "title_digesticon_recursives"
+msgstr "U bent aan samenvatting ${delay} over deze map en zijn submaps ingeschreven"
